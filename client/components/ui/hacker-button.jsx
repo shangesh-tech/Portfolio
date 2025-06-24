@@ -47,6 +47,7 @@ const HackerButton = ({ text, onClick, className }) => {
             onClick={onClick}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            type="button"
         >
             <span className="relative flex items-center gap-2">
                 <Download className="w-5 h-5" />

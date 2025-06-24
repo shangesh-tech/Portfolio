@@ -157,10 +157,11 @@ export default function Home() {
               className="flex flex-wrap gap-4 mt-8"
               variants={itemVariants}
             >
-              <HackerButton
-                text="Download CV"
-                onClick={() => window.open(portfolioConfig.resumeUrl, '_blank')}
-              />
+              <a href={portfolioConfig.resumeUrl} download className="no-underline">
+                <HackerButton
+                  text="Download CV"
+                />
+              </a>
 
               <div className="flex gap-4">
                 {[

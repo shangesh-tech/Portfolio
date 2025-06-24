@@ -4,6 +4,7 @@ export const portfolioConfig = {
     description: "I am a Passionate Full Stack Developer and Gen AI Developer",
     location: "Bengaluru, Karnataka, India",
     email: "shangeshsshangeshs@gmail.com",
+    resumeUrl: "/Shangesh_Resume.pdf",
 
     // Social Media Links
     socialLinks: {
