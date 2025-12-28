@@ -56,26 +56,32 @@ export default function Home() {
   const freelanceRef = useRef(null);
   const isInView = useInView(freelanceRef, { once: false, amount: 0.2 });
   const [hasScrolled, setHasScrolled] = useState(false);
-
-  // Array of roles to cycle through
-  const roles = ["Coder", "Designer", "Builder", "Developer"];
-  const typingSpeed = 100;
-  const deletingSpeed = 50;
-  const pauseDuration = 2000;
+  const [mounted, setMounted] = useState(false);
 
   // Reset hasScrolled when the component is unmounted
   useEffect(() => {
+    setMounted(true);
     return () => setHasScrolled(false);
   }, []);
 
   // Infinite typing animation - cycles through each role
   useEffect(() => {
+    if (!mounted) return;
+
+    const roles = ["Coder", "Designer", "Builder", "Developer"];
+    const typingSpeed = 100;
+    const deletingSpeed = 50;
+    const pauseDuration = 2000;
+
     let timeout;
     let currentRoleIndex = 0;
     let currentCharIndex = 0;
     let isDeleting = false;
+    let isRunning = true;
 
     const typeText = () => {
+      if (!isRunning) return;
+      
       const currentRole = roles[currentRoleIndex];
       const fullText = `< ${currentRole} />`;
 
@@ -108,8 +114,12 @@ export default function Home() {
     };
 
     typeText();
-    return () => clearTimeout(timeout);
-  }, [roles]);
+    
+    return () => {
+      isRunning = false;
+      clearTimeout(timeout);
+    };
+  }, [mounted]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
