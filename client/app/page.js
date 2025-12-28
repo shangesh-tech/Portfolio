@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   Linkedin,
   Twitter,
@@ -29,7 +29,7 @@ import {
   Send,
   Mail,
   AlertCircle,
-  Loader2
+  Loader2,
 } from "lucide-react";
 import logo from "@/public/profile_pic.jpg";
 import React, { useState, useEffect, useRef } from "react";
@@ -53,14 +53,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function Home() {
-  const [displayText, setDisplayText] = useState('');
+  const [displayText, setDisplayText] = useState("");
   const freelanceRef = useRef(null);
   const isInView = useInView(freelanceRef, { once: false, amount: 0.2 });
   const [hasScrolled, setHasScrolled] = useState(false);
 
-  const text = "< Coder /> < Designer /> < Builder />";
-  const typingSpeed = 150;
-  const deletingSpeed = 100;
+  // Array of roles to cycle through
+  const roles = ["Coder", "Designer", "Builder", "Developer"];
+  const typingSpeed = 100;
+  const deletingSpeed = 50;
   const pauseDuration = 2000;
 
   // Reset hasScrolled when the component is unmounted
@@ -68,35 +69,41 @@ export default function Home() {
     return () => setHasScrolled(false);
   }, []);
 
-  // Infinite typing animation
+  // Infinite typing animation - cycles through each role
   useEffect(() => {
     let timeout;
-    let currentIndex = 0;
+    let currentRoleIndex = 0;
+    let currentCharIndex = 0;
     let isDeleting = false;
-    let isPaused = false;
 
     const typeText = () => {
+      const currentRole = roles[currentRoleIndex];
+      const fullText = `< ${currentRole} />`;
+
       if (!isDeleting) {
-        if (currentIndex <= text.length) {
-          setDisplayText(text.substring(0, currentIndex));
-          currentIndex++;
+        // Typing
+        if (currentCharIndex <= fullText.length) {
+          setDisplayText(fullText.substring(0, currentCharIndex));
+          currentCharIndex++;
           timeout = setTimeout(typeText, typingSpeed);
         } else {
-          isPaused = true;
+          // Pause before deleting
           timeout = setTimeout(() => {
-            isPaused = false;
             isDeleting = true;
             typeText();
           }, pauseDuration);
         }
       } else {
-        if (currentIndex > 0) {
-          setDisplayText(text.substring(0, currentIndex));
-          currentIndex--;
+        // Deleting
+        if (currentCharIndex > 0) {
+          currentCharIndex--;
+          setDisplayText(fullText.substring(0, currentCharIndex));
           timeout = setTimeout(typeText, deletingSpeed);
         } else {
+          // Move to next role
           isDeleting = false;
-          timeout = setTimeout(typeText, typingSpeed);
+          currentRoleIndex = (currentRoleIndex + 1) % roles.length;
+          timeout = setTimeout(typeText, typingSpeed + 200);
         }
       }
     };
@@ -111,9 +118,9 @@ export default function Home() {
       opacity: 1,
       transition: {
         delayChildren: 0.3,
-        staggerChildren: 0.2
-      }
-    }
+        staggerChildren: 0.2,
+      },
+    },
   };
 
   const itemVariants = {
@@ -121,8 +128,8 @@ export default function Home() {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5 }
-    }
+      transition: { duration: 0.5 },
+    },
   };
 
   const cardVariants = {
@@ -133,9 +140,9 @@ export default function Home() {
       transition: {
         type: "spring",
         stiffness: 100,
-        damping: 12
-      }
-    }
+        damping: 12,
+      },
+    },
   };
 
   return (
@@ -162,14 +169,13 @@ export default function Home() {
             </motion.h1>
 
             <motion.div
-              className="flex flex-col items-center space-x-2 text-xl md:text-2xl text-gray-700 dark:text-gray-300"
+              className="flex flex-col md:flex-row items-center md:items-baseline gap-2 text-xl md:text-2xl"
               variants={itemVariants}
             >
-              <p className="text-gray-700 dark:text-gray-300 font-bold block md:w-full">I am a</p>
-              <p className="font-mono text-indigo-600 dark:text-indigo-400 md:w-full">
+              <span className="font-mono text-indigo-600 dark:text-indigo-400 min-w-[180px] md:min-w-[220px]">
                 {displayText}
                 <span className="animate-blink">|</span>
-              </p>
+              </span>
             </motion.div>
 
             <motion.p
@@ -183,17 +189,34 @@ export default function Home() {
               className="flex flex-wrap gap-4 mt-8"
               variants={itemVariants}
             >
-              <a href={portfolioConfig.resumeUrl} download className="no-underline">
-                <HackerButton
-                  text="Download CV"
-                />
+              <a
+                href={portfolioConfig.resumeUrl}
+                download
+                className="no-underline"
+              >
+                <HackerButton text="Download CV" />
               </a>
 
               <div className="flex gap-4">
                 {[
-                  { icon: Github, href: "https://github.com/shangesh-tech", label: "GitHub", color: "from-gray-600 to-gray-800" },
-                  { icon: Linkedin, href: "https://www.linkedin.com/in/shangesh-s", label: "LinkedIn", color: "from-blue-600 to-blue-800" },
-                  { icon: Twitter, href: "https://twitter.com/shangesh_s", label: "Twitter", color: "from-sky-500 to-sky-700" }
+                  {
+                    icon: Github,
+                    href: "https://github.com/shangesh-tech",
+                    label: "GitHub",
+                    color: "from-gray-600 to-gray-800",
+                  },
+                  {
+                    icon: Linkedin,
+                    href: "https://www.linkedin.com/in/shangesh-s",
+                    label: "LinkedIn",
+                    color: "from-blue-600 to-blue-800",
+                  },
+                  {
+                    icon: Twitter,
+                    href: "https://twitter.com/shangesh_s",
+                    label: "Twitter",
+                    color: "from-sky-500 to-sky-700",
+                  },
                 ].map((social, index) => (
                   <Link
                     key={social.label}
@@ -227,7 +250,7 @@ export default function Home() {
                 type: "spring",
                 stiffness: 100,
                 damping: 20,
-                delay: 0.2
+                delay: 0.2,
               }}
             >
               <Image
@@ -254,14 +277,26 @@ export default function Home() {
         </div>
 
         {/* Stats Section */}
-        <motion.div
-          variants={containerVariants}
-          className="flex gap-8 my-16"
-        >
+        <motion.div variants={containerVariants} className="flex gap-8 my-16">
           {[
-            { value: portfolioConfig.projects.length + "+", label: "Projects", icon: <Code className="h-4 w-4" />, color: "from-blue-500/20 to-blue-600/5" },
-            { value: "Fresher", label: "Exp", icon: <Rocket className="h-4 w-4" />, color: "from-purple-500/20 to-purple-600/5" },
-            { value: "100%", label: "Satisfaction", icon: <CheckCircle className="h-4 w-4" />, color: "from-green-500/20 to-green-600/5" }
+            {
+              value: portfolioConfig.projects.length + "+",
+              label: "Projects",
+              icon: <Code className="h-4 w-4" />,
+              color: "from-blue-500/20 to-blue-600/5",
+            },
+            {
+              value: "Fresher",
+              label: "Exp",
+              icon: <Rocket className="h-4 w-4" />,
+              color: "from-purple-500/20 to-purple-600/5",
+            },
+            {
+              value: "100%",
+              label: "Satisfaction",
+              icon: <CheckCircle className="h-4 w-4" />,
+              color: "from-green-500/20 to-green-600/5",
+            },
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -280,7 +315,7 @@ export default function Home() {
                   delay: index * 0.3,
                   repeat: Infinity,
                   repeatType: "loop",
-                  ease: "easeInOut"
+                  ease: "easeInOut",
                 }}
               >
                 {stat.icon}
@@ -305,34 +340,40 @@ export default function Home() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                <span className="text-sm text-foreground/70 font-medium">Scroll Down to Explore</span>
+                <span className="text-sm text-foreground/70 font-medium">
+                  Scroll Down to Explore
+                </span>
                 <div className="relative">
                   <motion.div
                     className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-indigo-400/20 to-violet-600/20 rounded-full"
                     animate={{
                       scale: [1, 1.5, 1],
-                      opacity: [0.3, 0.1, 0.3]
+                      opacity: [0.3, 0.1, 0.3],
                     }}
                     transition={{
                       duration: 2.5,
                       repeat: Infinity,
-                      ease: "easeInOut"
+                      ease: "easeInOut",
                     }}
                   />
                   <motion.button
-                    onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+                    onClick={() =>
+                      document
+                        .getElementById("about")
+                        ?.scrollIntoView({ behavior: "smooth" })
+                    }
                     className="relative z-10 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-violet-600 text-white shadow-lg hover:shadow-xl cursor-pointer overflow-hidden"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     <motion.div
                       animate={{
-                        y: [0, 4, 0]
+                        y: [0, 4, 0],
                       }}
                       transition={{
                         duration: 1.5,
                         repeat: Infinity,
-                        ease: "easeInOut"
+                        ease: "easeInOut",
                       }}
                     >
                       <ChevronDown className="h-6 w-6" />
@@ -343,12 +384,12 @@ export default function Home() {
                   className="absolute -bottom-12 flex flex-col items-center"
                   animate={{
                     opacity: [0, 1, 0],
-                    y: [0, 8, 0]
+                    y: [0, 8, 0],
                   }}
                   transition={{
                     duration: 2,
                     repeat: Infinity,
-                    ease: "easeInOut"
+                    ease: "easeInOut",
                   }}
                 >
                   <MousePointer className="h-4 w-4 text-indigo-500 rotate-90 mb-1" />
@@ -370,7 +411,11 @@ export default function Home() {
       <ProjectsSection />
 
       {/* Freelance Journey Section */}
-      <FreelanceSection freelanceRef={freelanceRef} isInView={isInView} cardVariants={cardVariants} />
+      <FreelanceSection
+        freelanceRef={freelanceRef}
+        isInView={isInView}
+        cardVariants={cardVariants}
+      />
 
       {/* Contact Section */}
       <ContactSection />
@@ -388,14 +433,14 @@ function AboutSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15
-      }
-    }
+        staggerChildren: 0.15,
+      },
+    },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
   return (
@@ -410,12 +455,18 @@ function AboutSection() {
         >
           {/* Header */}
           <motion.div className="text-center" variants={itemVariants}>
-            <Badge variant="outline" className="mb-4 px-4 py-1.5 text-sm font-medium border-primary/20">
+            <Badge
+              variant="outline"
+              className="mb-4 px-4 py-1.5 text-sm font-medium border-primary/20"
+            >
               About Me
             </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Get to know me better</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Get to know me better
+            </h2>
             <p className="text-foreground/70 max-w-2xl mx-auto">
-              Here you&apos;ll find more information about me, my current skills, and what I like to do in my free time.
+              Here you&apos;ll find more information about me, my current
+              skills, and what I like to do in my free time.
             </p>
           </motion.div>
 
@@ -454,7 +505,9 @@ function AboutSection() {
                     </div>
                     <h4 className="font-medium">Nationality</h4>
                   </div>
-                  <p className="text-foreground/80">{personalInfo.nationality}</p>
+                  <p className="text-foreground/80">
+                    {personalInfo.nationality}
+                  </p>
                 </div>
 
                 <div className="bg-card/30 backdrop-blur-sm p-5 rounded-xl border border-border/40 shadow-sm hover:shadow-md transition-shadow">
@@ -493,7 +546,11 @@ function AboutSection() {
                       key={index}
                       className="flex items-center gap-3 p-3 bg-card/20 backdrop-blur-sm rounded-lg border border-border/30 hover:border-primary/30 hover:bg-card/30 transition-colors"
                       whileHover={{ scale: 1.02, x: 5 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10,
+                      }}
                     >
                       <Circle className="h-2 w-2 text-primary" />
                       <span className="text-foreground/80">{hobby}</span>
@@ -560,9 +617,9 @@ function SkillsSection() {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.1
-      }
-    }
+        delayChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -570,8 +627,8 @@ function SkillsSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 }
-    }
+      transition: { duration: 0.5 },
+    },
   };
 
   const categories = [
@@ -580,28 +637,28 @@ function SkillsSection() {
       icon: <Code className="w-5 h-5 text-primary" />,
       items: portfolioConfig.skills.programmingLanguages,
       color: "from-blue-500/20 to-indigo-500/20",
-      textColor: "text-blue-600 dark:text-blue-400"
+      textColor: "text-blue-600 dark:text-blue-400",
     },
     {
       title: "Frameworks & Libraries",
       icon: <Library className="w-5 h-5 text-primary" />,
       items: portfolioConfig.skills.frameworks,
       color: "from-violet-500/20 to-purple-500/20",
-      textColor: "text-violet-600 dark:text-violet-400"
+      textColor: "text-violet-600 dark:text-violet-400",
     },
     {
       title: "Databases",
       icon: <Database className="w-5 h-5 text-primary" />,
       items: portfolioConfig.skills.databases,
       color: "from-green-500/20 to-lime-500/20",
-      textColor: "text-green-600 dark:text-green-400"
+      textColor: "text-green-600 dark:text-green-400",
     },
     {
       title: "Tools & Technologies",
       icon: <Wrench className="w-5 h-5 text-primary" />,
       items: portfolioConfig.skills.tools,
       color: "from-amber-500/20 to-orange-500/20",
-      textColor: "text-amber-600 dark:text-amber-400"
+      textColor: "text-amber-600 dark:text-amber-400",
     },
   ];
 
@@ -617,14 +674,20 @@ function SkillsSection() {
         >
           {/* Header */}
           <motion.div className="text-center" variants={itemVariants}>
-            <Badge variant="outline" className="mb-4 px-4 py-1.5 text-sm font-medium border-primary/20">
+            <Badge
+              variant="outline"
+              className="mb-4 px-4 py-1.5 text-sm font-medium border-primary/20"
+            >
               <LightbulbIcon className="w-4 h-4 mr-1" />
               Skills & Expertise
             </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">My Technical Skills</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              My Technical Skills
+            </h2>
             <p className="text-foreground/70 max-w-2xl mx-auto">
-              I specialize in building modern web applications using JavaScript, TypeScript, React, and Next.js.
-              Here&apos;s a comprehensive overview of my technical expertise and tools I work with.
+              I specialize in building modern web applications using JavaScript,
+              TypeScript, React, and Next.js. Here&apos;s a comprehensive
+              overview of my technical expertise and tools I work with.
             </p>
           </motion.div>
 
@@ -640,9 +703,11 @@ function SkillsSection() {
                   <h3 className="text-2xl font-bold">Overview</h3>
                 </div>
                 <p className="text-foreground/80 leading-relaxed mb-4">
-                  With a solid foundation in HTML5, CSS3, JavaScript and React js and Next js and Tailwind css, I focus on building
-                  responsive and user-friendly web applications. My expertise extends to modern frameworks
-                  and libraries, enabling me to create efficient, scalable solutions.
+                  With a solid foundation in HTML5, CSS3, JavaScript and React
+                  js and Next js and Tailwind css, I focus on building
+                  responsive and user-friendly web applications. My expertise
+                  extends to modern frameworks and libraries, enabling me to
+                  create efficient, scalable solutions.
                 </p>
                 <div className="flex flex-wrap gap-2 mt-6">
                   {portfolioConfig.skills.roles.map((role, index) => (
@@ -695,7 +760,11 @@ function SkillsSection() {
 
           {/* Skills Categories */}
           {categories.map((category, categoryIndex) => (
-            <motion.div key={categoryIndex} variants={itemVariants} className="space-y-6">
+            <motion.div
+              key={categoryIndex}
+              variants={itemVariants}
+              className="space-y-6"
+            >
               <div className="flex items-center gap-2 border-b border-border pb-2">
                 {category.icon}
                 <h3 className="text-2xl font-bold">{category.title}</h3>
@@ -709,13 +778,17 @@ function SkillsSection() {
                     whileHover={{
                       y: -5,
                       boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-                      borderColor: "rgba(var(--primary), 0.3)"
+                      borderColor: "rgba(var(--primary), 0.3)",
                     }}
-                    onHoverStart={() => setHoveredSkill(`${categoryIndex}-${skillIndex}`)}
+                    onHoverStart={() =>
+                      setHoveredSkill(`${categoryIndex}-${skillIndex}`)
+                    }
                     onHoverEnd={() => setHoveredSkill(null)}
                   >
                     {/* Background gradient */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-100 transition-opacity`} />
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-100 transition-opacity`}
+                    />
 
                     <div className="relative p-5 flex flex-col items-center text-center">
                       {skill.icon ? (
@@ -726,8 +799,12 @@ function SkillsSection() {
                           className="h-12 w-12 object-contain mb-4"
                         />
                       ) : (
-                        <div className={`h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 ${category.textColor}`}>
-                          <span className="font-bold text-lg">{skill.name.charAt(0)}</span>
+                        <div
+                          className={`h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 ${category.textColor}`}
+                        >
+                          <span className="font-bold text-lg">
+                            {skill.name.charAt(0)}
+                          </span>
                         </div>
                       )}
 
@@ -738,8 +815,14 @@ function SkillsSection() {
                         className="absolute top-2 right-2 h-2 w-2 rounded-full bg-primary"
                         initial={{ scale: 0 }}
                         animate={{
-                          scale: hoveredSkill === `${categoryIndex}-${skillIndex}` ? 1 : 0,
-                          backgroundColor: hoveredSkill === `${categoryIndex}-${skillIndex}` ? "var(--primary)" : "transparent"
+                          scale:
+                            hoveredSkill === `${categoryIndex}-${skillIndex}`
+                              ? 1
+                              : 0,
+                          backgroundColor:
+                            hoveredSkill === `${categoryIndex}-${skillIndex}`
+                              ? "var(--primary)"
+                              : "transparent",
                         }}
                         transition={{ duration: 0.2 }}
                       />
@@ -763,11 +846,11 @@ function ProjectsSection() {
 
   // Filter projects by category
   const fullStackProjects = portfolioConfig.projects.filter(
-    project => project.category === "fullstack" || !project.category
+    (project) => project.category === "fullstack" || !project.category
   );
 
   const genAiProjects = portfolioConfig.projects.filter(
-    project => project.category === "genai"
+    (project) => project.category === "genai"
   );
 
   // Animation variants
@@ -776,9 +859,9 @@ function ProjectsSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const sectionVariants = {
@@ -786,12 +869,12 @@ function ProjectsSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: "easeOut" }
-    }
+      transition: { duration: 0.7, ease: "easeOut" },
+    },
   };
 
   const scrollToSection = (ref) => {
-    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
@@ -806,7 +889,10 @@ function ProjectsSection() {
         >
           {/* Header Section */}
           <motion.div className="text-center" variants={sectionVariants}>
-            <Badge variant="outline" className="mb-4 px-4 py-1.5 text-sm font-medium border-primary/20">
+            <Badge
+              variant="outline"
+              className="mb-4 px-4 py-1.5 text-sm font-medium border-primary/20"
+            >
               <Layers className="h-4 w-4 mr-1.5" />
               My Portfolio
             </Badge>
@@ -814,8 +900,9 @@ function ProjectsSection() {
               Featured Projects
             </h2>
             <p className="text-foreground/70 max-w-2xl mx-auto text-lg">
-              Explore my collection of web applications and websites built with modern technologies.
-              Each project represents my passion for creating useful, beautiful digital experiences.
+              Explore my collection of web applications and websites built with
+              modern technologies. Each project represents my passion for
+              creating useful, beautiful digital experiences.
             </p>
 
             <div className="flex justify-center gap-4 mt-8">
@@ -907,13 +994,15 @@ function ProjectsSection() {
 function ProjectCard({ project, index, isHovered, setHovered, type }) {
   const isFeatured = index === 0;
 
-  const cardGradient = type === "genai"
-    ? "from-emerald-500/5 to-teal-500/10"
-    : "from-indigo-500/5 to-violet-500/10";
+  const cardGradient =
+    type === "genai"
+      ? "from-emerald-500/5 to-teal-500/10"
+      : "from-indigo-500/5 to-violet-500/10";
 
-  const accentGradient = type === "genai"
-    ? "from-emerald-500/80 to-teal-500/40"
-    : "from-indigo-500/80 to-violet-500/40";
+  const accentGradient =
+    type === "genai"
+      ? "from-emerald-500/80 to-teal-500/40"
+      : "from-indigo-500/80 to-violet-500/40";
 
   return (
     <motion.div
@@ -922,26 +1011,29 @@ function ProjectCard({ project, index, isHovered, setHovered, type }) {
         visible: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.6, ease: "easeOut", delay: index * 0.1 }
-        }
+          transition: { duration: 0.6, ease: "easeOut", delay: index * 0.1 },
+        },
       }}
       whileHover={{
         y: -10,
-        transition: { type: "spring", stiffness: 300, damping: 20 }
+        transition: { type: "spring", stiffness: 300, damping: 20 },
       }}
       onHoverStart={() => setHovered(project.title)}
       onHoverEnd={() => setHovered(null)}
       layout
       className="h-full"
     >
-      <Card className={cn(
-        "h-full overflow-hidden relative group border border-border/40 backdrop-blur-sm",
-        isFeatured ? `bg-gradient-to-br ${cardGradient}` : "bg-card/30"
-      )}>
+      <Card
+        className={cn(
+          "h-full overflow-hidden relative group border border-border/40 backdrop-blur-sm",
+          isFeatured ? `bg-gradient-to-br ${cardGradient}` : "bg-card/30"
+        )}
+      >
         {/* Color accent at top */}
-        <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${accentGradient} transform origin-left transition-transform duration-500 ease-out`}
+        <div
+          className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${accentGradient} transform origin-left transition-transform duration-500 ease-out`}
           style={{
-            transform: isHovered ? 'scaleX(1)' : 'scaleX(0)'
+            transform: isHovered ? "scaleX(1)" : "scaleX(0)",
           }}
         />
 
@@ -955,9 +1047,7 @@ function ProjectCard({ project, index, isHovered, setHovered, type }) {
         </CardHeader>
 
         <CardContent className="space-y-4">
-          <p className="text-foreground/70">
-            {project.description}
-          </p>
+          <p className="text-foreground/70">{project.description}</p>
 
           <div className="flex flex-wrap gap-1.5">
             {project.tags.slice(0, 3).map((tag, idx) => (
@@ -1003,7 +1093,7 @@ function ProjectCard({ project, index, isHovered, setHovered, type }) {
                 className={cn(
                   buttonVariants({
                     variant: "default",
-                    size: "sm"
+                    size: "sm",
                   }),
                   "gap-1 group",
                   type === "genai" ? "bg-emerald-600 hover:bg-emerald-500" : ""
@@ -1028,7 +1118,7 @@ function ProjectCard({ project, index, isHovered, setHovered, type }) {
                   className={cn(
                     buttonVariants({
                       variant: "outline",
-                      size: "icon-sm"
+                      size: "icon-sm",
                     }),
                     "h-8 w-8"
                   )}
@@ -1061,15 +1151,12 @@ function FreelanceSection({ freelanceRef, isInView, cardVariants }) {
               opacity: 1,
               transition: {
                 when: "beforeChildren",
-                staggerChildren: 0.2
-              }
-            }
+                staggerChildren: 0.2,
+              },
+            },
           }}
         >
-          <motion.div
-            className="mb-12 text-center"
-            variants={cardVariants}
-          >
+          <motion.div className="mb-12 text-center" variants={cardVariants}>
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 mb-6">
               <Briefcase className="h-8 w-8 text-white" />
             </div>
@@ -1079,8 +1166,9 @@ function FreelanceSection({ freelanceRef, isInView, cardVariants }) {
               </span>
             </h2>
             <p className="text-foreground/70 max-w-2xl mx-auto">
-              Delivering exceptional websites for clients that meet their specific needs
-              and help their businesses thrive in the digital landscape.
+              Delivering exceptional websites for clients that meet their
+              specific needs and help their businesses thrive in the digital
+              landscape.
             </p>
           </motion.div>
 
@@ -1100,10 +1188,24 @@ function FreelanceSection({ freelanceRef, isInView, cardVariants }) {
                     <div
                       className="w-full h-full flex items-center justify-center"
                       style={{
-                        background: `linear-gradient(135deg, ${index === 0 ? 'rgba(251, 146, 60, 0.2)' : index === 1 ? 'rgba(79, 70, 229, 0.2)' : 'rgba(16, 185, 129, 0.2)'} 0%, ${index === 0 ? 'rgba(251, 113, 133, 0.3)' : index === 1 ? 'rgba(139, 92, 246, 0.3)' : 'rgba(6, 182, 212, 0.3)'} 100%)`
+                        background: `linear-gradient(135deg, ${
+                          index === 0
+                            ? "rgba(251, 146, 60, 0.2)"
+                            : index === 1
+                            ? "rgba(79, 70, 229, 0.2)"
+                            : "rgba(16, 185, 129, 0.2)"
+                        } 0%, ${
+                          index === 0
+                            ? "rgba(251, 113, 133, 0.3)"
+                            : index === 1
+                            ? "rgba(139, 92, 246, 0.3)"
+                            : "rgba(6, 182, 212, 0.3)"
+                        } 100%)`,
                       }}
                     >
-                      <div className="text-white font-bold text-lg text-center p-4 relative z-10">{project.title}</div>
+                      <div className="text-white font-bold text-lg text-center p-4 relative z-10">
+                        {project.title}
+                      </div>
                     </div>
                   </div>
 
@@ -1116,7 +1218,9 @@ function FreelanceSection({ freelanceRef, isInView, cardVariants }) {
                     </p>
 
                     <div className="mt-auto flex justify-between items-center">
-                      <span className="text-xs text-foreground/60">{project.year}</span>
+                      <span className="text-xs text-foreground/60">
+                        {project.year}
+                      </span>
 
                       <motion.a
                         href={project.link}
@@ -1146,15 +1250,15 @@ function ContactSection() {
   const [formState, setFormState] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
   const [formStatus, setFormStatus] = useState("idle");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormState(prev => ({
+    setFormState((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -1199,9 +1303,9 @@ function ContactSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15
-      }
-    }
+        staggerChildren: 0.15,
+      },
+    },
   };
 
   const itemVariants = {
@@ -1209,14 +1313,14 @@ function ContactSection() {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5 }
-    }
+      transition: { duration: 0.5 },
+    },
   };
 
   const formStatusMessage = {
     submitting: "Sending your message...",
     success: "Message sent successfully!",
-    error: "There was an error sending your message. Please try again."
+    error: "There was an error sending your message. Please try again.",
   };
 
   return (
@@ -1231,14 +1335,18 @@ function ContactSection() {
         >
           {/* Header Section */}
           <motion.div className="text-center" variants={itemVariants}>
-            <Badge variant="outline" className="mb-4 px-4 py-1.5 text-sm font-medium border-primary/20">
+            <Badge
+              variant="outline"
+              className="mb-4 px-4 py-1.5 text-sm font-medium border-primary/20"
+            >
               <Phone className="h-4 w-4 mr-1.5" />
               Get In Touch
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Contact Me</h2>
             <p className="text-foreground/70 max-w-2xl mx-auto text-lg">
-              Have a project in mind or just want to chat? Feel free to reach out.
-              I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+              Have a project in mind or just want to chat? Feel free to reach
+              out. I'm always open to discussing new projects, creative ideas or
+              opportunities to be part of your vision.
             </p>
           </motion.div>
 
@@ -1251,7 +1359,8 @@ function ContactSection() {
                     Send Me a Message
                   </CardTitle>
                   <CardDescription>
-                    Fill out the form below and I'll get back to you as soon as possible.
+                    Fill out the form below and I'll get back to you as soon as
+                    possible.
                   </CardDescription>
                 </CardHeader>
 
@@ -1269,7 +1378,10 @@ function ContactSection() {
                         value={formState.name}
                         onChange={handleChange}
                         required
-                        disabled={formStatus === "submitting" || formStatus === "success"}
+                        disabled={
+                          formStatus === "submitting" ||
+                          formStatus === "success"
+                        }
                       />
                     </div>
 
@@ -1286,7 +1398,10 @@ function ContactSection() {
                         value={formState.email}
                         onChange={handleChange}
                         required
-                        disabled={formStatus === "submitting" || formStatus === "success"}
+                        disabled={
+                          formStatus === "submitting" ||
+                          formStatus === "success"
+                        }
                       />
                     </div>
 
@@ -1303,7 +1418,10 @@ function ContactSection() {
                         value={formState.message}
                         onChange={handleChange}
                         required
-                        disabled={formStatus === "submitting" || formStatus === "success"}
+                        disabled={
+                          formStatus === "submitting" ||
+                          formStatus === "success"
+                        }
                       />
                     </div>
                   </CardContent>
@@ -1313,12 +1431,13 @@ function ContactSection() {
                       <AnimatePresence mode="wait">
                         {formStatus !== "idle" && (
                           <motion.div
-                            className={`flex items-center p-3 rounded-md text-sm ${formStatus === "success"
-                              ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300"
-                              : formStatus === "error"
+                            className={`flex items-center p-3 rounded-md text-sm ${
+                              formStatus === "success"
+                                ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300"
+                                : formStatus === "error"
                                 ? "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300"
                                 : "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300"
-                              }`}
+                            }`}
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
@@ -1338,7 +1457,10 @@ function ContactSection() {
                       <Button
                         type="submit"
                         className="w-full mt-6"
-                        disabled={formStatus === "submitting" || formStatus === "success"}
+                        disabled={
+                          formStatus === "submitting" ||
+                          formStatus === "success"
+                        }
                       >
                         {formStatus === "submitting" ? (
                           <>
