@@ -187,6 +187,43 @@ export const portfolioConfig = {
         },
     ],
 
+    // Work Experience
+    experience: [
+        {
+            title: "Onchain Expert",
+            company: "Digital South Trust",
+            type: "Full-time",
+            period: "Oct 2025 - Present",
+            duration: "3 mos",
+            location: "Bengaluru, Karnataka, India",
+            workType: "Remote",
+            description: "Working as an Onchain Expert, focusing on Web3 technologies, project management, and blockchain solutions.",
+            skills: ["Web3", "Project Management", "Blockchain", "Smart Contracts"],
+        },
+        {
+            title: "Blockchain Developer",
+            company: "AMALAS",
+            type: "Full-time",
+            period: "Aug 2025 - Sep 2025",
+            duration: "2 mos",
+            location: "Lebanon",
+            workType: "Remote",
+            description: "Developed blockchain solutions and smart contracts, contributing to decentralized applications and Web3 infrastructure.",
+            skills: ["Blockchain", "Web3", "Solidity", "Smart Contracts", "DApps", "Ethereum"],
+        },
+        {
+            title: "Full Stack Engineer",
+            company: "Virtua Technologies",
+            type: "Internship",
+            period: "Aug 2024 - Oct 2024",
+            duration: "3 mos",
+            location: "Australia",
+            workType: "Remote",
+            description: "As a Full Stack Developer Intern at Virtua Technology, I contributed to the development and integration of blockchain solutions. My responsibilities included designing and implementing web applications with modern frameworks.",
+            skills: ["MERN Stack", "React", "Node.js", "MongoDB", "Blockchain", "Web Development"],
+        },
+    ],
+
     projects: [
         {
             title: "InkWell- A Modern Full Stack Blog Platform.",

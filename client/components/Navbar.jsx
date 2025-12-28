@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { useEffect, useState } from 'react';
 
 import {
+    Briefcase,
     FolderGit2,
     HomeIcon,
     LightbulbIcon,
@@ -26,6 +27,11 @@ const Navbar = () => {
             title: 'About',
             icon: <User className='w-5 h-5' />,
             href: '#about',
+        },
+        {
+            title: 'Experience',
+            icon: <Briefcase className='w-5 h-5' />,
+            href: '#experience',
         },
         {
             title: 'Skills',

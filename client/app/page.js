@@ -285,59 +285,11 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Stats Section */}
-        <motion.div variants={containerVariants} className="flex gap-8 my-16">
-          {[
-            {
-              value: portfolioConfig.projects.length + "+",
-              label: "Projects",
-              icon: <Code className="h-4 w-4" />,
-              color: "from-blue-500/20 to-blue-600/5",
-            },
-            {
-              value: "Fresher",
-              label: "Exp",
-              icon: <Rocket className="h-4 w-4" />,
-              color: "from-purple-500/20 to-purple-600/5",
-            },
-            {
-              value: "100%",
-              label: "Satisfaction",
-              icon: <CheckCircle className="h-4 w-4" />,
-              color: "from-green-500/20 to-green-600/5",
-            },
-          ].map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              className={`flex flex-col items-center p-3.5 rounded-xl bg-gradient-to-br ${stat.color} backdrop-blur-sm border border-border/20 dark:border-white/5 shadow-sm`}
-              whileHover={{ y: -5, scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ delay: 0.2 * index }}
-            >
-              <motion.div
-                className="text-primary mb-1"
-                animate={{
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  delay: index * 0.3,
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  ease: "easeInOut",
-                }}
-              >
-                {stat.icon}
-              </motion.div>
-              <div className="font-bold text-xl">{stat.value}</div>
-              <div className="text-xs text-foreground/60">{stat.label}</div>
-            </motion.div>
-          ))}
-        </motion.div>
+      
 
         {/* Scroll Down Animation */}
         <motion.div
-          className="relative w-full flex flex-col items-center my-16 -mt-6"
+          className="relative w-full flex flex-col items-center my-16 "
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.7 }}
@@ -389,21 +341,6 @@ export default function Home() {
                     </motion.div>
                   </motion.button>
                 </div>
-                <motion.div
-                  className="absolute -bottom-12 flex flex-col items-center"
-                  animate={{
-                    opacity: [0, 1, 0],
-                    y: [0, 8, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <MousePointer className="h-4 w-4 text-indigo-500 rotate-90 mb-1" />
-                  <span className="text-xs text-foreground/60">Scroll</span>
-                </motion.div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -412,6 +349,9 @@ export default function Home() {
 
       {/* About Section */}
       <AboutSection />
+
+      {/* Experience Section */}
+      <ExperienceSection />
 
       {/* Skills Section */}
       <SkillsSection />
@@ -609,6 +549,164 @@ function AboutSection() {
                 ))}
               </div>
             </motion.div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ==================== EXPERIENCE SECTION ====================
+function ExperienceSection() {
+  const experiences = portfolioConfig.experience;
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.2,
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
+
+  return (
+    <section id="experience" className="py-24 w-full bg-muted/30">
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={containerVariants}
+          className="max-w-6xl mx-auto"
+        >
+          {/* Section Header */}
+          <motion.div variants={itemVariants} className="text-center mb-16">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Briefcase className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+              <span className="text-indigo-600 dark:text-indigo-400 font-medium">
+                Work Experience
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+              My Professional Journey
+            </h2>
+            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+              Building expertise through hands-on experience in blockchain, Web3, and full-stack development
+            </p>
+          </motion.div>
+
+          {/* Experience Timeline */}
+          <div className="relative">
+            {/* Timeline Line */}
+            <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-indigo-500 via-violet-500 to-purple-500 hidden md:block" />
+
+            <div className="space-y-12">
+              {experiences.map((exp, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className={`relative flex flex-col md:flex-row gap-8 ${
+                    index % 2 === 0 ? "md:flex-row-reverse" : ""
+                  }`}
+                >
+                  {/* Timeline Dot */}
+                  <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center">
+                    <motion.div
+                      className="w-4 h-4 rounded-full bg-indigo-500 border-4 border-background shadow-lg"
+                      whileHover={{ scale: 1.3 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    />
+                  </div>
+
+                  {/* Spacer for alternating layout */}
+                  <div className="hidden md:block md:w-1/2" />
+
+                  {/* Experience Card */}
+                  <div className="md:w-1/2">
+                    <motion.div
+                      whileHover={{ y: -5 }}
+                      className="group"
+                    >
+                      <Card className="overflow-hidden border-0 shadow-lg bg-card/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300">
+                        {/* Card Header with Gradient */}
+                        <div className="h-2 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500" />
+                        
+                        <CardHeader className="pb-2">
+                          <div className="flex items-start justify-between gap-4">
+                            <div className="space-y-1">
+                              <CardTitle className="text-xl font-bold text-foreground group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                {exp.title}
+                              </CardTitle>
+                              <CardDescription className="text-base font-medium text-indigo-600 dark:text-indigo-400">
+                                {exp.company}
+                              </CardDescription>
+                            </div>
+                            <Badge
+                              variant="secondary"
+                              className={cn(
+                                "shrink-0",
+                                exp.type === "Full-time"
+                                  ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                                  : "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                              )}
+                            >
+                              {exp.type}
+                            </Badge>
+                          </div>
+                        </CardHeader>
+
+                        <CardContent className="space-y-4">
+                          {/* Duration & Location */}
+                          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                            <div className="flex items-center gap-1.5">
+                              <Calendar className="h-4 w-4" />
+                              <span>{exp.period}</span>
+                              <span className="text-xs">({exp.duration})</span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              <Globe2 className="h-4 w-4" />
+                              <span>{exp.location}</span>
+                              <Badge variant="outline" className="text-xs">
+                                {exp.workType}
+                              </Badge>
+                            </div>
+                          </div>
+
+                          {/* Description */}
+                          <p className="text-muted-foreground text-sm leading-relaxed">
+                            {exp.description}
+                          </p>
+
+                          {/* Skills */}
+                          <div className="flex flex-wrap gap-2 pt-2">
+                            {exp.skills.map((skill, skillIndex) => (
+                              <Badge
+                                key={skillIndex}
+                                variant="secondary"
+                                className="bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 text-xs"
+                              >
+                                {skill}
+                              </Badge>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>
