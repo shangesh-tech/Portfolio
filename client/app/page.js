@@ -4,12 +4,10 @@ import {
   Twitter,
   Github,
   Code,
-  Rocket,
   CheckCircle,
   ExternalLink,
   Briefcase,
   ChevronDown,
-  MousePointer,
   Calendar,
   Circle,
   Dna,
@@ -29,6 +27,8 @@ import {
   Send,
   AlertCircle,
   Loader2,
+  Boxes,
+  PlayCircle,
 } from "lucide-react";
 import logo from "@/public/profile_pic.jpg";
 import React, { useState, useEffect, useRef } from "react";
@@ -68,7 +68,7 @@ export default function Home() {
   useEffect(() => {
     if (!mounted) return;
 
-    const roles = ["Coder", "Designer", "Builder", "Developer"];
+    const roles = ["Coder", "Web3 Developer", "Blockchain Developer", "Builder/Developer"];
     const typingSpeed = 100;
     const deletingSpeed = 50;
     const pauseDuration = 2000;
@@ -414,8 +414,8 @@ function AboutSection() {
               Get to know me better
             </h2>
             <p className="text-foreground/70 max-w-2xl mx-auto">
-              Here you&apos;ll find more information about me, my current
-              skills, and what I like to do in my free time.
+              Here you&apos;ll find more information about me, my expertise in
+              Full Stack and Web3/Blockchain development, and what I like to do in my free time.
             </p>
           </motion.div>
 
@@ -467,16 +467,6 @@ function AboutSection() {
                     <h4 className="font-medium">Gender</h4>
                   </div>
                   <p className="text-foreground/80">{personalInfo.gender}</p>
-                </div>
-
-                <div className="bg-card/30 backdrop-blur-sm p-5 rounded-xl border border-border/40 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="bg-primary/10 p-2 rounded-lg">
-                      <Calendar className="h-5 w-5 text-primary" />
-                    </div>
-                    <h4 className="font-medium">Experience</h4>
-                  </div>
-                  <p className="text-foreground/80">Fresher</p>
                 </div>
               </div>
             </motion.div>
@@ -810,11 +800,11 @@ function SkillsSection() {
                   <h3 className="text-2xl font-bold">Overview</h3>
                 </div>
                 <p className="text-foreground/80 leading-relaxed mb-4">
-                  With a solid foundation in HTML5, CSS3, JavaScript and React
-                  js and Next js and Tailwind css, I focus on building
-                  responsive and user-friendly web applications. My expertise
-                  extends to modern frameworks and libraries, enabling me to
-                  create efficient, scalable solutions.
+                  With a solid foundation in HTML5, CSS3, JavaScript, React.js,
+                  Next.js, and Tailwind CSS, I focus on building responsive and
+                  user-friendly web applications. My expertise extends to Web3
+                  and blockchain development with Solidity, Hardhat, and Foundry,
+                  enabling me to create efficient, scalable decentralized solutions.
                 </p>
                 <div className="flex flex-wrap gap-2 mt-6">
                   {portfolioConfig.skills.roles.map((role, index) => (
@@ -847,14 +837,29 @@ function SkillsSection() {
                   </div>
                   <div className="space-y-1">
                     <div className="flex justify-between text-sm">
-                      <span className="font-medium">Gen AI</span>
-                      <span className="text-primary">70%</span>
+                      <span className="font-medium">Web3 / Blockchain</span>
+                      <span className="text-primary">90%</span>
                     </div>
                     <div className="h-2 bg-primary/10 rounded-full overflow-hidden">
                       <motion.div
                         className="h-full bg-primary"
                         initial={{ width: 0 }}
-                        whileInView={{ width: "70%" }}
+                        whileInView={{ width: "90%" }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, delay: 0.3 }}
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-sm">
+                      <span className="font-medium">Gen AI</span>
+                      <span className="text-primary">65%</span>
+                    </div>
+                    <div className="h-2 bg-primary/10 rounded-full overflow-hidden">
+                      <motion.div
+                        className="h-full bg-primary"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: "65%" }}
                         viewport={{ once: true }}
                         transition={{ duration: 1, delay: 0.4 }}
                       />
@@ -950,6 +955,7 @@ function ProjectsSection() {
   const [hoveredProject, setHoveredProject] = useState(null);
   const fullStackRef = useRef(null);
   const genAiRef = useRef(null);
+  const blockchainRef = useRef(null);
 
   // Filter projects by category
   const fullStackProjects = portfolioConfig.projects.filter(
@@ -958,6 +964,10 @@ function ProjectsSection() {
 
   const genAiProjects = portfolioConfig.projects.filter(
     (project) => project.category === "genai"
+  );
+
+  const blockchainProjects = portfolioConfig.projects.filter(
+    (project) => project.category === "blockchain"
   );
 
   // Animation variants
@@ -1012,13 +1022,20 @@ function ProjectsSection() {
               creating useful, beautiful digital experiences.
             </p>
 
-            <div className="flex justify-center gap-4 mt-8">
+            <div className="flex flex-wrap justify-center gap-4 mt-8">
               <Button
                 onClick={() => scrollToSection(fullStackRef)}
                 className="group flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-500 hover:from-indigo-500 hover:to-violet-400"
               >
                 <Code className="h-4 w-4 group-hover:rotate-12 transition-transform" />
                 Full Stack Projects
+              </Button>
+              <Button
+                onClick={() => scrollToSection(blockchainRef)}
+                className="group flex items-center gap-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400"
+              >
+                <Boxes className="h-4 w-4 group-hover:rotate-12 transition-transform" />
+                Blockchain Projects
               </Button>
               <Button
                 onClick={() => scrollToSection(genAiRef)}
@@ -1056,6 +1073,37 @@ function ProjectsSection() {
                   isHovered={hoveredProject === project.title}
                   setHovered={setHoveredProject}
                   type="fullstack"
+                />
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Blockchain Projects Section */}
+          <motion.div
+            ref={blockchainRef}
+            className="space-y-8"
+            variants={sectionVariants}
+          >
+            <div className="flex items-center gap-3 mb-10">
+              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center">
+                <Boxes className="h-5 w-5 text-white" />
+              </div>
+              <h3 className="text-3xl font-bold">Blockchain Projects</h3>
+              <div className="h-[1px] flex-grow bg-gradient-to-r from-orange-500/50 to-transparent"></div>
+            </div>
+
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              variants={containerVariants}
+            >
+              {blockchainProjects.map((project, index) => (
+                <ProjectCard
+                  key={project.title}
+                  project={project}
+                  index={index}
+                  isHovered={hoveredProject === project.title}
+                  setHovered={setHoveredProject}
+                  type="blockchain"
                 />
               ))}
             </motion.div>
@@ -1104,12 +1152,23 @@ function ProjectCard({ project, index, isHovered, setHovered, type }) {
   const cardGradient =
     type === "genai"
       ? "from-emerald-500/5 to-teal-500/10"
+      : type === "blockchain"
+      ? "from-orange-500/5 to-amber-500/10"
       : "from-indigo-500/5 to-violet-500/10";
 
   const accentGradient =
     type === "genai"
       ? "from-emerald-500/80 to-teal-500/40"
+      : type === "blockchain"
+      ? "from-orange-500/80 to-amber-500/40"
       : "from-indigo-500/80 to-violet-500/40";
+
+  const buttonColor =
+    type === "genai"
+      ? "bg-emerald-600 hover:bg-emerald-500"
+      : type === "blockchain"
+      ? "bg-orange-500 hover:bg-orange-400"
+      : "";
 
   return (
     <motion.div
@@ -1185,32 +1244,46 @@ function ProjectCard({ project, index, isHovered, setHovered, type }) {
           <div className="text-xs text-foreground/60 flex items-center gap-1">
             <Calendar className="h-3 w-3" />
             <span>{project.year}</span>
+            {project.demoVideo && (
+              <a
+                href={project.demoVideo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-2 flex items-center gap-1 text-red-500 hover:text-red-400 transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <PlayCircle className="h-3.5 w-3.5" />
+                <span>Demo</span>
+              </a>
+            )}
           </div>
 
           <div className="flex items-center gap-2">
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative z-10"
-            >
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  buttonVariants({
-                    variant: "default",
-                    size: "sm",
-                  }),
-                  "gap-1 group",
-                  type === "genai" ? "bg-emerald-600 hover:bg-emerald-500" : ""
-                )}
-                onClick={(e) => e.stopPropagation()}
+            {project.link && (
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative z-10"
               >
-                <span>View</span>
-                <ExternalLink className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-            </motion.div>
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(
+                    buttonVariants({
+                      variant: "default",
+                      size: "sm",
+                    }),
+                    "gap-1 group",
+                    buttonColor
+                  )}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <span>View</span>
+                  <ExternalLink className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+              </motion.div>
+            )}
 
             {project.github && (
               <motion.div
