@@ -27,7 +27,6 @@ import {
   Sparkles,
   Phone,
   Send,
-  Mail,
   AlertCircle,
   Loader2,
 } from "lucide-react";
@@ -110,7 +109,7 @@ export default function Home() {
 
     typeText();
     return () => clearTimeout(timeout);
-  }, []);
+  }, [roles]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -1345,8 +1344,8 @@ function ContactSection() {
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Contact Me</h2>
             <p className="text-foreground/70 max-w-2xl mx-auto text-lg">
               Have a project in mind or just want to chat? Feel free to reach
-              out. I'm always open to discussing new projects, creative ideas or
-              opportunities to be part of your vision.
+              out. I&apos;m always open to discussing new projects, creative
+              ideas or opportunities to be part of your vision.
             </p>
           </motion.div>
 
@@ -1359,8 +1358,8 @@ function ContactSection() {
                     Send Me a Message
                   </CardTitle>
                   <CardDescription>
-                    Fill out the form below and I'll get back to you as soon as
-                    possible.
+                    Fill out the form below and I&apos;ll get back to you as
+                    soon as possible.
                   </CardDescription>
                 </CardHeader>
 
