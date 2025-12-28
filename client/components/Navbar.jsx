@@ -10,39 +10,37 @@ import {
     User,
 } from 'lucide-react';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import BackgroundPattern from "@/components/ui/background-pattern";
 
 const Navbar = () => {
-    const pathname = usePathname();
+    const [activeSection, setActiveSection] = useState('home');
     const [theme, setTheme] = useState("light");
 
     const navItems = [
         {
             title: 'Home',
             icon: <HomeIcon className='w-5 h-5' />,
-            href: '/',
+            href: '#home',
         },
         {
             title: 'About',
             icon: <User className='w-5 h-5' />,
-            href: '/about',
+            href: '#about',
         },
         {
             title: 'Skills',
             icon: <LightbulbIcon className='w-5 h-5' />,
-            href: '/skills',
+            href: '#skills',
         },
         {
             title: 'Projects',
             icon: <FolderGit2 className='w-5 h-5' />,
-            href: '/projects',
+            href: '#projects',
         },
         {
             title: 'Contact',
             icon: <Mail className='w-5 h-5' />,
-            href: '/contact',
+            href: '#contact',
         }
     ];
 
@@ -61,11 +59,45 @@ const Navbar = () => {
         }
     }, []);
 
+    // Track active section based on scroll position
+    useEffect(() => {
+        const handleScroll = () => {
+            const sections = ['home', 'about', 'skills', 'projects', 'freelance', 'contact'];
+            const scrollPosition = window.scrollY + 150;
+
+            for (const section of sections) {
+                const element = document.getElementById(section);
+                if (element) {
+                    const offsetTop = element.offsetTop;
+                    const offsetHeight = element.offsetHeight;
+
+                    if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                        setActiveSection(section);
+                        break;
+                    }
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll(); // Initial check
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     const toggleTheme = () => {
         const newTheme = theme === "light" ? "dark" : "light";
         setTheme(newTheme);
         document.documentElement.classList.toggle("dark", newTheme === "dark");
         localStorage.setItem("theme", newTheme);
+    };
+
+    const scrollToSection = (e, href) => {
+        e.preventDefault();
+        const targetId = href.replace('#', '');
+        const element = document.getElementById(targetId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
     };
 
     return (
@@ -80,9 +112,10 @@ const Navbar = () => {
                     {navItems.map((item, idx) => (
                         <NavItem
                             key={idx}
-                            isActive={pathname === item.href}
+                            isActive={activeSection === item.href.replace('#', '')}
                             href={item.href}
                             title={item.title}
+                            onClick={(e) => scrollToSection(e, item.href)}
                         >
                             {item.icon}
                         </NavItem>
@@ -110,11 +143,11 @@ const Navbar = () => {
     );
 };
 
-function NavItem({ children, isActive, title, href }) {
+function NavItem({ children, isActive, title, href, onClick }) {
     const [hovered, setHovered] = useState(false);
 
     return (
-        <Link href={href} aria-label={title}>
+        <a href={href} aria-label={title} onClick={onClick}>
             <div
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
@@ -150,7 +183,7 @@ function NavItem({ children, isActive, title, href }) {
                     <div className="absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-primary" />
                 )}
             </div>
-        </Link>
+        </a>
     );
 }
 
