@@ -1,5 +1,5 @@
 # Shangesh S Portfolio
-
+ 
 A modern, responsive portfolio website built with Next.js 15 and TailwindCSS, showcasing skills, projects, and professional experience.
 
 ![Portfolio Preview](client/public/profile_pic.jpg)
