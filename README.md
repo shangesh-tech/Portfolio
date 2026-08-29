@@ -5,7 +5,7 @@ A modern, responsive portfolio website built with Next.js 15 and TailwindCSS, sh
 ![Portfolio Preview](client/public/profile_pic.jpg)
 
 ## 🌟 Features
-
+ 
 - **Modern UI Design**: Sleek interface with animations, transitions, and responsive layout
 - **Dark/Light Mode**: Theme toggle with local storage persistence
 - **Interactive Components**: Animated navigation, project cards, and skill displays
