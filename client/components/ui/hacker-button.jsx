@@ -1,71 +1,63 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Download } from 'lucide-react';
+"use client";
 
-const HackerButton = ({ text, onClick, className }) => {
-    const [displayText, setDisplayText] = useState(text);
-    const [isHovered, setIsHovered] = useState(false);
+import { useState } from "react";
+import { Download } from "lucide-react";
+import { useScramble } from "@/components/ui/scramble-text";
 
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*';
+/**
+ * Download control whose label resolves out of random glyphs on hover.
+ * Renders an <a> when `href` is set so downloads stay a real link.
+ */
+export default function HackerButton({
+  text = "Resume",
+  href,
+  download,
+  onClick,
+  className = "",
+  variant = "solid",
+}) {
+  const [hovered, setHovered] = useState(false);
+  const label = useScramble(text, hovered, { speed: 35, revealFor: 2 });
 
-    useEffect(() => {
-        let interval;
-        if (isHovered) {
-            let iterations = 0;
-            const maxIterations = 10;
-            interval = setInterval(() => {
-                setDisplayText(prevText => {
-                    return prevText
-                        .split('')
-                        .map((char, index) => {
-                            if (index < iterations) {
-                                return text[index];
-                            }
-                            return characters[Math.floor(Math.random() * characters.length)];
-                        })
-                        .join('');
-                });
+  const base = variant === "solid" ? "neo-btn" : "neo-btn-outline";
 
-                iterations += 1 / 3;
-                if (iterations >= maxIterations) {
-                    clearInterval(interval);
-                    setDisplayText(text);
-                }
-            }, 50);
-        } else {
-            setDisplayText(text);
-        }
+  const content = (
+    <>
+      <Download className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
+      <span className="font-[var(--font-code)] tabular-nums">{label}</span>
+    </>
+  );
 
-        return () => clearInterval(interval);
-    }, [isHovered, text]);
+  const handlers = {
+    onMouseEnter: () => setHovered(true),
+    onMouseLeave: () => setHovered(false),
+    onFocus: () => setHovered(true),
+    onBlur: () => setHovered(false),
+  };
 
+  if (href) {
     return (
-        <motion.button
-            className={`group relative inline-flex items-center justify-center px-6 py-3 bg-indigo-600 text-white rounded-lg overflow-hidden transition-all duration-300 hover:bg-indigo-700 ${className}`}
-            onHoverStart={() => setIsHovered(true)}
-            onHoverEnd={() => setIsHovered(false)}
-            onClick={onClick}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            type="button"
-        >
-            <span className="relative flex items-center gap-2">
-                <Download className="w-5 h-5" />
-                <span className="font-mono">{displayText}</span>
-            </span>
-            <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-indigo-600/0 via-indigo-600/30 to-indigo-600/0"
-                animate={{
-                    x: ['-100%', '100%'],
-                }}
-                transition={{
-                    repeat: Infinity,
-                    duration: 1.5,
-                    ease: 'linear',
-                }}
-            />
-        </motion.button>
+      <a
+        href={href}
+        download={download}
+        aria-label={text}
+        className={`${base} ${className}`}
+        {...handlers}
+      >
+        {content}
+      </a>
     );
-};
+  }
 
-export default HackerButton; 
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={text}
+      className={`${base} ${className}`}
+      {...handlers}
+    >
+      {content}
+    </button>
+  );
+}

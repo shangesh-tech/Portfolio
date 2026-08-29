@@ -1,196 +1,226 @@
-"use client"
-import { cn } from "@/lib/utils";
-import { useEffect, useState } from 'react';
+"use client";
 
-import {
-    Briefcase,
-    FolderGit2,
-    HomeIcon,
-    LightbulbIcon,
-    Mail,
-    User,
-} from 'lucide-react';
+import { useCallback, useEffect, useState } from "react";
+import { Menu, X, Moon, Sun } from "lucide-react";
+import ScrambleText from "@/components/ui/scramble-text";
 
-import BackgroundPattern from "@/components/ui/background-pattern";
+const NAV_ITEMS = [
+  { label: "About", href: "#about" },
+  { label: "Work", href: "#experience" },
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
+  { label: "Wins", href: "#achievements" },
+];
 
-const Navbar = () => {
-    const [activeSection, setActiveSection] = useState('home');
-    const [theme, setTheme] = useState("light");
+const SECTION_IDS = [
+  "hero",
+  "about",
+  "experience",
+  "projects",
+  "skills",
+  "achievements",
+  "contact",
+];
 
-    const navItems = [
-        {
-            title: 'Home',
-            icon: <HomeIcon className='w-5 h-5' />,
-            href: '#home',
-        },
-        {
-            title: 'About',
-            icon: <User className='w-5 h-5' />,
-            href: '#about',
-        },
-        {
-            title: 'Experience',
-            icon: <Briefcase className='w-5 h-5' />,
-            href: '#experience',
-        },
-        {
-            title: 'Skills',
-            icon: <LightbulbIcon className='w-5 h-5' />,
-            href: '#skills',
-        },
-        {
-            title: 'Projects',
-            icon: <FolderGit2 className='w-5 h-5' />,
-            href: '#projects',
-        },
-        {
-            title: 'Contact',
-            icon: <Mail className='w-5 h-5' />,
-            href: '#contact',
-        }
-    ];
+const NAV_HEIGHT = 80;
 
-    // Theme management
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const storedTheme = localStorage.getItem("theme");
-            if (storedTheme) {
-                setTheme(storedTheme);
-                document.documentElement.classList.toggle("dark", storedTheme === "dark");
-            } else {
-                const systemPreference = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-                setTheme(systemPreference);
-                document.documentElement.classList.toggle("dark", systemPreference === "dark");
-            }
-        }
-    }, []);
+export default function Navbar() {
+  const [active, setActive] = useState("hero");
+  const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useState("light");
+  // The hero is dark in both themes, so the bar inverts while it sits over it.
+  const [overHero, setOverHero] = useState(true);
 
-    // Track active section based on scroll position
-    useEffect(() => {
-        const handleScroll = () => {
-            const sections = ['home', 'about', 'skills', 'projects', 'freelance', 'contact'];
-            const scrollPosition = window.scrollY + 150;
+  // Adopt whatever the pre-paint bootstrap script already applied.
+  useEffect(() => {
+    const current =
+      document.documentElement.getAttribute("data-theme") || "light";
+    setTheme(current);
+  }, []);
 
-            for (const section of sections) {
-                const element = document.getElementById(section);
-                if (element) {
-                    const offsetTop = element.offsetTop;
-                    const offsetHeight = element.offsetHeight;
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => {
+      const next = prev === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem("theme", next);
+      } catch {
+        /* storage unavailable — the choice just won't persist */
+      }
+      return next;
+    });
+  }, []);
 
-                    if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-                        setActiveSection(section);
-                        break;
-                    }
-                }
-            }
-        };
+  // Track the active section and whether the bar still overlaps the hero.
+  useEffect(() => {
+    const onScroll = () => {
+      const probe = window.scrollY + 160;
+      let current = "hero";
 
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll(); // Initial check
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+      for (const id of SECTION_IDS) {
+        const el = document.getElementById(id);
+        if (el && probe >= el.offsetTop) current = id;
+      }
+      setActive(current);
 
-    const toggleTheme = () => {
-        const newTheme = theme === "light" ? "dark" : "light";
-        setTheme(newTheme);
-        document.documentElement.classList.toggle("dark", newTheme === "dark");
-        localStorage.setItem("theme", newTheme);
+      const hero = document.getElementById("hero");
+      const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 0;
+      setOverHero(window.scrollY + NAV_HEIGHT < heroBottom);
     };
 
-    const scrollToSection = (e, href) => {
-        e.preventDefault();
-        const targetId = href.replace('#', '');
-        const element = document.getElementById(targetId);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-        }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
     };
+  }, []);
 
-    return (
-        <>
-            <BackgroundPattern theme={theme} />
-            <div className="fixed top-5 right-0 left-0 px-4 sm:px-5 m-auto w-full sm:w-fit bg-transparent z-[999]">
-                <nav
-                    className='mx-auto flex gap-2 sm:gap-3 bg-gray-50/90 dark:bg-neutral-900/90 backdrop-blur-md items-center py-3 px-4 sm:px-6 rounded-full border border-gray-200/30 dark:border-neutral-800/50 shadow-lg'
-                    role='navigation'
-                    aria-label='Main navigation'
-                >
-                    {navItems.map((item, idx) => (
-                        <NavItem
-                            key={idx}
-                            isActive={activeSection === item.href.replace('#', '')}
-                            href={item.href}
-                            title={item.title}
-                            onClick={(e) => scrollToSection(e, item.href)}
-                        >
-                            {item.icon}
-                        </NavItem>
-                    ))}
+  // Close the mobile sheet on Escape.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
-                    {/* Theme Toggle */}
-                    <button
-                        onClick={toggleTheme}
-                        className="p-2 ml-2 rounded-full bg-gray-200/80 dark:bg-neutral-800/80 hover:bg-gray-300 dark:hover:bg-neutral-700 transition-colors duration-200"
-                        aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-                    >
-                        {theme === "light" ? (
-                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                            </svg>
-                        ) : (
-                            <svg className="w-5 h-5 text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
-                            </svg>
-                        )}
-                    </button>
-                </nav>
-            </div>
-        </>
-    );
-};
+  const go = (e, href) => {
+    e.preventDefault();
+    setOpen(false);
+    document
+      .getElementById(href.slice(1))
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
 
-function NavItem({ children, isActive, title, href, onClick }) {
-    const [hovered, setHovered] = useState(false);
+  // A solid sheet would defeat the blur, so the mobile panel keeps the glass
+  // and only the tint changes with context.
+  const shell = overHero
+    ? "bg-white/[0.06] border-white/15"
+    : "bg-[var(--color-surface)]/65 border-[var(--color-border)]/25";
 
-    return (
-        <a href={href} aria-label={title} onClick={onClick}>
-            <div
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
-                className={cn(
-                    "relative w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200",
-                    isActive
-                        ? "bg-primary/10 text-primary border border-primary/20"
-                        : "bg-gray-200/80 hover:bg-gray-300 dark:bg-neutral-800/80 dark:hover:bg-neutral-700 text-gray-700 dark:text-gray-300"
-                )}
-                aria-current={isActive ? "page" : undefined}
-            >
-                {/* Tooltip */}
-                {hovered && (
-                    <div
-                        className="absolute top-full left-1/2 -translate-x-1/2 min-w-max pointer-events-none mt-2"
-                    >
-                        <div className="flex flex-col items-center">
-                            <div className="w-2 h-2 rotate-45 bg-gray-800 dark:bg-gray-900 -mb-1 z-10"></div>
-                            <div className="px-3 py-1.5 rounded-lg bg-gray-800 dark:bg-gray-900 text-white shadow-lg">
-                                <div className="font-medium text-xs">{title}</div>
-                            </div>
-                        </div>
-                    </div>
-                )}
+  const inkClass = overHero ? "text-white" : "text-[var(--color-text-primary)]";
+  const hoverInk = overHero
+    ? "hover:text-[#c4b5fd]"
+    : "hover:text-[var(--color-primary)]";
+  const activeInk = overHero ? "text-[#c4b5fd]" : "text-[var(--color-primary)]";
+  const dotBg = overHero ? "bg-[#c4b5fd]" : "bg-[var(--color-primary)]";
 
-                {/* Icon */}
-                <div className="flex items-center justify-center">
-                    {children}
-                </div>
+  const iconButton = overHero
+    ? "bg-white/10 border-white/40 text-white hover:bg-white/20"
+    : "bg-[var(--color-background)]/70 border-[var(--color-border)]/40 text-[var(--color-text-primary)] hover:bg-[var(--color-background)]";
 
-                {/* Active indicator dot */}
-                {isActive && (
-                    <div className="absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-primary" />
-                )}
-            </div>
+  return (
+    <nav
+      className={`fixed top-0 left-0 w-full z-40 backdrop-blur-xl backdrop-saturate-150 border-b transition-colors duration-500 ${shell}`}
+    >
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <a
+          href="#hero"
+          onClick={(e) => go(e, "#hero")}
+          className={`text-2xl md:text-3xl font-[var(--font-heading)] font-black tracking-tighter transition-colors duration-500 ${inkClass}`}
+        >
+          <ScrambleText text="Shangesh S" speed={30} />
+          <span className={overHero ? "text-[#c4b5fd]" : "text-[var(--color-primary)]"}>
+            .
+          </span>
         </a>
-    );
-}
 
-export default Navbar;
+        {/* Desktop */}
+        <div className="hidden md:flex items-center gap-6">
+          {NAV_ITEMS.map((item) => {
+            const isActive = active === item.href.slice(1);
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={(e) => go(e, item.href)}
+                aria-current={isActive ? "page" : undefined}
+                className={`font-bold font-[var(--font-code)] text-sm uppercase tracking-wider relative transition-colors duration-300 ${hoverInk} ${
+                  isActive ? activeInk : inkClass
+                }`}
+              >
+                <ScrambleText text={item.label} speed={30} revealFor={2} />
+                <span
+                  className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full transition-all duration-300 ${dotBg} ${
+                    isActive ? "opacity-100 scale-100" : "opacity-0 scale-0"
+                  }`}
+                />
+              </a>
+            );
+          })}
+
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+            className={`w-10 h-10 flex items-center justify-center rounded-full border-2 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 ${iconButton}`}
+          >
+            {theme === "light" ? (
+              <Moon className="w-5 h-5" />
+            ) : (
+              <Sun className="w-5 h-5 text-[var(--color-secondary)]" />
+            )}
+          </button>
+
+          <a
+            href="#contact"
+            onClick={(e) => go(e, "#contact")}
+            className="neo-btn text-sm shadow-[3px_3px_0_rgba(0,0,0,0.35)]"
+          >
+            Contact Me
+          </a>
+        </div>
+
+        {/* Mobile */}
+        <div className="md:hidden flex items-center gap-3">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+            className={`w-10 h-10 flex items-center justify-center rounded-full border-2 backdrop-blur-sm transition-colors ${iconButton}`}
+          >
+            {theme === "light" ? (
+              <Moon className="w-5 h-5" />
+            ) : (
+              <Sun className="w-5 h-5 text-[var(--color-secondary)]" />
+            )}
+          </button>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            className={`p-2 transition-colors ${inkClass}`}
+          >
+            {open ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
+      </div>
+
+      {open && (
+        <div
+          className={`md:hidden backdrop-blur-xl border-t px-6 py-6 flex flex-col gap-4 transition-colors ${shell}`}
+        >
+          {NAV_ITEMS.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              onClick={(e) => go(e, item.href)}
+              className={`font-bold font-[var(--font-code)] uppercase tracking-wider transition-colors ${inkClass} ${hoverInk}`}
+            >
+              {item.label}
+            </a>
+          ))}
+          <a
+            href="#contact"
+            onClick={(e) => go(e, "#contact")}
+            className="neo-btn w-full mt-2"
+          >
+            Contact Me
+          </a>
+        </div>
+      )}
+    </nav>
+  );
+}

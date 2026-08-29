@@ -1,36 +1,49 @@
 export const portfolioConfig = {
   name: "Shangesh S",
+  role: "Blockchain & Full Stack Engineer",
+  tagline: "Blockchain & Full Stack Engineer",
   description:
-    "I am a Passionate Web3 Blockchain Developer and Full Stack Developer based in Bengaluru, Karnataka, India.",
-  location: "Bengaluru, Karnataka, India",
+    "Blockchain & Full Stack Engineer with 1.5 years of remote experience across three companies. Founder of Streamlet, a live media-infrastructure platform. Ships production Solidity contracts, Next.js/Node.js applications, and Dockerized CI/CD.",
+  location: "Bangalore, India",
   email: "shangeshsshangeshs@gmail.com",
+  phone: "+91 8248321624",
   resumeUrl: "/Shangesh_Resume.pdf",
+  resumeFileName: "Shangesh S - Blockchain Engineer.pdf",
 
-  // Social Media Links
+  // Roles cycled by the hero typing animation
+  typedRoles: [
+    "Blockchain Engineer",
+    "Full Stack Engineer",
+    "Solidity Developer",
+    "Founder of Streamlet",
+  ],
+
   socialLinks: {
-    twitter: "https://twitter.com/shangesh_s",
     linkedin: "https://www.linkedin.com/in/shangesh-s",
     github: "https://github.com/shangesh-tech",
+    twitter: "https://twitter.com/shangesh_s",
+    website: "https://shangesh.vercel.app",
   },
 
-  // SEO Information
   seo: {
-    ogImage: "https://shangesh-tech.vercel.app/og-image.png",
+    ogImage: "https://shangesh.vercel.app/og-image.png",
     url: "https://shangesh.vercel.app",
+    twitterHandle: "@shangesh_s",
     keywords: [
       "shangesh",
       "shangesh s",
       "Shangesh S",
       "shangesh portfolio",
+      "blockchain engineer",
+      "solidity developer",
+      "full stack engineer",
+      "web3 developer",
+      "smart contracts",
+      "ERC-4337",
+      "Foundry",
+      "Next.js developer",
+      "Streamlet",
       "shangesh kalvium",
-      "portfolio",
-      "web developer",
-      "web",
-      "web dev",
-      "developer",
-      "PROGRAMMER ",
-      "programmer ",
-      "shangesh developer",
     ],
     authors: [
       {
@@ -40,408 +53,501 @@ export const portfolioConfig = {
     ],
   },
 
-  // About Information
   about: {
-    bio: "I am a Full Stack Web Developer and Web3/Blockchain Developer from Bengaluru, Karnataka, India. I'm passionate about crafting web projects, building decentralized applications, and contributing to open-source communities. I specialize in modern JavaScript frameworks, smart contract development with Solidity, and responsive CSS design, focusing on creating pixel-perfect, user-friendly interfaces. With strong attention to detail and efficient delivery, I build seamless web experiences that combine functionality with elegant design.",
+    summary:
+      "Blockchain & Full Stack Engineer — CS undergraduate with 1.5 years of remote experience across three companies; founder of Streamlet, a live media-infrastructure platform. Ships production Solidity contracts, Next.js/Node.js applications, and Dockerized CI/CD.",
+    bio: "I'm a Blockchain & Full Stack Engineer based in Bangalore, India. Over 1.5 years I've shipped for three remote companies — writing production Solidity that survives audits, cutting gas costs through storage-layout work, and wiring the Docker and CI/CD that gets it all to mainnet. Alongside that I founded Streamlet, a media-infrastructure platform running HLS video, image optimisation, and document hosting behind a single API. I care about the unglamorous parts: test coverage, runbooks, and deploys that take minutes instead of hours.",
+    // Headline delivered under the hero, and the terminal `cat resume.txt` payload
+    manifesto:
+      "Contracts that survive the audit. Deploys that take minutes. Interfaces people finish using.",
+    terminal: [
+      "name:    Shangesh S",
+      "role:    Blockchain & Full Stack Engineer",
+      "based:   Bangalore, India — remote worldwide",
+      "",
+      "shipping:",
+      "  → 12 production Solidity contracts to mainnet",
+      "  → 22% average gas reduction on live systems",
+      "  → deploy time cut from 2 hours to 15 minutes",
+      "  → Streamlet: 99.99% uptime, sub-50ms stream starts",
+      "",
+      "status:  open to work ▮",
+    ],
     hobbies: [
-      "Coding",
-      "Playing Games",
-      "Reading Financial & Tech News",
-      "Creating Cool Projects & Deployed to production",
+      "Shipping smart contracts",
+      "Reading audit reports",
+      "Building developer tooling",
+      "Following markets & protocol design",
     ],
     personalInfo: {
-      language: "English UK",
+      language: "English, Tamil",
       nationality: "India",
-      gender: "Male",
+      availability: "Open to opportunities",
     },
   },
 
-  // Skills and Roles
-  skills: {
-    roles: ["Full Stack Developer", "Web3 Developer", "Gen AI Developer"],
-    programmingLanguages: [
-      {
-        name: "HTML5",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
-      },
-      {
-        name: "CSS3",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
-      },
-      {
-        name: "JavaScript",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-      },
-      {
-        name: "TypeScript",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
-      },
-      {
-        name: "Python",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
-      },
-      {
-        name: "Solidity",
-        icon: "https://www.simplilearn.com/ice9/free_resources_article_thumb/Solidity_Programming_2.jfif",
-      },
-    ],
-    frameworks: [
-      {
-        name: "React",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-      },
-      {
-        name: "Next.js",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
-      },
-      {
-        name: "Tailwind CSS",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
-      },
-      {
-        name: "Bootstrap",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
-      },
-      {
-        name: "Node.js",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-      },
-      {
-        name: "Express.js",
-        icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThDT4LJ5TIfL3URFMkxdTb8A7yg-3_koRaRQ&s",
-      },
-      {
-        name: "FastAPI",
-        icon: "https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png",
-      },
-      {
-        name: "Streamlit",
-        icon: "https://streamlit.io/images/brand/streamlit-logo-secondary-colormark-darktext.svg",
-      },
-      {
-        name: "Hardhat",
-        icon: "https://images.seeklogo.com/logo-png/42/1/hardhat-logo-png_seeklogo-426727.png",
-      },
-      {
-        name: "Foundry",
-        icon: "https://getfoundry.sh/og-image.png",
-      },
-      {
-        name: "IPFS",
-        icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5dX2eO291lHHJAbeZKM9QpX7q4Q1D-deawA&s",
-      },
-      {
-        name: "OpenZeppelin",
-        icon: "https://www.openzeppelin.com/hubfs/oz-iso.svg",
-      },
-      {
-        name: "Solmate",
-        icon: "https://avatars.githubusercontent.com/u/50007072?s=200&v=4",
-      },
-    ],
-    databases: [
-      {
-        name: "PostgreSQL",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
-      },
-      {
-        name: "MongoDB",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-      },
-      {
-        name: "IPFS",
-        icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5dX2eO291lHHJAbeZKM9QpX7q4Q1D-deawA&s",
-      },
-      {
-        name: "Firebase",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-      },
-      {
-        name: "Supabase",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg",
-      },
-      {
-        name: "Pinecone",
-        icon: "https://avatars.githubusercontent.com/u/54333248?s=200&v=4",
-      },
-    ],
-    tools: [
-      {
-        name: "Git",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-      },
-      {
-        name: "GitHub",
-        icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-tvx2BFjpYmfiIBLV25XIfVZy4KhCYFLB7w&s",
-      },
-      {
-        name: "VS Code",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
-      },
-      {
-        name: "Docker",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-      },
-      {
-        name: "Figma",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
-      },
-      {
-        name: "GitLab",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg",
-      },
-      {
-        name: "Vercel",
-        icon: "https://images.ctfassets.net/crb83veve8xb/2YfNwMlyl1U0DLVXRgL8TB/9e8474e083f2ba01a296343d84f2282d/vercel_thumbnail.webp",
-      },
-    ],
-  },
-  education: [
-    {
-      degree: "BTech in Computer Science and Engineering",
-      institution: "Alliance University",
-      location: "Bengaluru, Karnataka, India",
-      period: "July 2024 - 2028",
-      description:
-        "I am currently Studying Bachelor of Technology in Computer Science and Engineering form Alliance University, Bengaluru. The program has provided me with a well-rounded education, covering both theoretical foundations and practical applications of computer science.",
-    },
+  stats: [
+    { icon: "FileCode2", value: "12+", label: "Contracts Shipped to Mainnet" },
+    { icon: "Building2", value: "3", label: "Companies Shipped For" },
+    { icon: "Trophy", value: "2", label: "Hackathons Won or Finalled" },
   ],
 
-  // Work Experience
   experience: [
     {
-      title: "Onchain Expert",
+      title: "Founder & CTO",
+      company: "Streamlet",
+      period: "2025 – Present",
+      location: "Bangalore, India (Remote)",
+      workType: "Remote",
+      highlights: [
+        "Founded and shipped a production media-infrastructure platform unifying HLS video streaming, WebP image optimisation, and document hosting behind one API, sustaining 99.99% uptime and sub-50ms stream starts on a global edge network.",
+        "Built a six-stage pipeline taking 4 GB uploads through adaptive HLS transcoding to 4K, thumbnail extraction, Whisper AI captions in 11 languages, and signed-URL, WAF, and multi-DRM protection before edge delivery.",
+        "Set technical direction end to end: published the open-source @streamlet/sdk npm client with REST API docs, and built usage-metered billing across five tiers benchmarked against Mux and Cloudflare Stream.",
+      ],
+      skills: ["Next.js", "Node.js", "HLS", "Docker", "SDK", "Edge"],
+    },
+    {
+      title: "Blockchain & Full Stack Engineer",
       company: "Digital South Trust",
-      type: "Full-time",
-      period: "Oct 2025 - Present",
-      duration: "3 mos",
-      location: "Bengaluru, Karnataka, India",
+      period: "Oct 2025 – Jul 2026",
+      location: "Bengaluru, India (Remote)",
       workType: "Remote",
-      description:
-        "Working as an Onchain Expert, focusing on Web3 technologies, project management, and blockchain solutions.",
-      skills: ["Web3", "Project Management", "Blockchain", "Smart Contracts"],
+      highlights: [
+        "Led delivery of 12 production Solidity contracts, from spec through testing, audit fixes, and mainnet deployment.",
+        "Cut average gas costs 22% via storage-layout refactors, custom errors, and batched state updates.",
+        "Automated Docker and CI/CD releases, cutting deployment time from 2 hours to 15 minutes, and authored runbooks adopted by the engineering team.",
+      ],
+      skills: ["Solidity", "Foundry", "Docker", "CI/CD", "Gas Optimization"],
     },
     {
-      title: "Blockchain Developer",
+      title: "Blockchain & Full Stack Engineer",
       company: "AMALAS",
-      type: "Full-time",
-      period: "Aug 2025 - Sep 2025",
-      duration: "2 mos",
-      location: "Lebanon",
+      period: "Jul 2025 – Sep 2025",
+      location: "Lebanon (Remote)",
       workType: "Remote",
-      description:
-        "Developed blockchain solutions and smart contracts, contributing to decentralized applications and Web3 infrastructure.",
-      skills: [
-        "Blockchain",
-        "Web3",
-        "Solidity",
-        "Smart Contracts",
-        "DApps",
-        "Ethereum",
+      highlights: [
+        "Delivered secure Solidity contracts for an Ethereum DApp at 90% unit and fuzz test coverage, hardened against reentrancy, access-control, and overflow risks with OpenZeppelin.",
+        "Coordinated with a distributed remote team across 3 time zones, translating founder requirements into technical specs and presenting weekly demos to non-technical stakeholders.",
       ],
+      skills: ["Solidity", "OpenZeppelin", "Fuzz Testing", "Ethereum", "DApps"],
     },
     {
-      title: "Full Stack Engineer",
+      title: "Full Stack Engineer Intern",
       company: "Virtua Technologies",
-      type: "Internship",
-      period: "Aug 2024 - Oct 2024",
-      duration: "3 mos",
-      location: "Australia",
+      period: "Aug 2024 – Oct 2024",
+      location: "Australia (Remote)",
       workType: "Remote",
-      description:
-        "As a Full Stack Developer Intern at Virtua Technology, I contributed to the development and integration of blockchain solutions. My responsibilities included designing and implementing web applications with modern frameworks.",
-      skills: [
-        "MERN Stack",
-        "React",
-        "Node.js",
-        "MongoDB",
-        "Blockchain",
-        "Web Development",
+      highlights: [
+        "Architected end-to-end MERN features linking React front ends to Node.js/Express APIs and blockchain modules, secured with token auth and role-based access.",
+        "Scaled responsive Web3 interfaces to 500+ concurrent users at 1.4s load time by cutting JavaScript bundle size 40% with code splitting and lazy loading, lifting Core Web Vitals and engagement 25%.",
       ],
+      skills: ["React", "Node.js", "Express", "MongoDB", "Web3"],
     },
   ],
 
   projects: [
     {
-      title: "InkWell- A Modern Full Stack Blog Platform.",
+      title: "Streamlet — Media Infrastructure Platform",
+      category: "Infrastructure",
+      featured: true,
       description:
-        "Engineered a high-performance blog platform using Next.js 15, implementing server-side rendering, static generation and serverless architecture deployed on Vercel to achieve 99% Google Lighthouse performance score and 0.6s initial page load times.",
-      tags: ["Nextjs", "Tailwind CSS", "MongoDB", "Mongoose", "Cloudinary"],
-      link: "https://inkwell-gilt.vercel.app",
-      github: "https://github.com/shangesh-tech/inkwell",
-      category: "fullstack",
-      year: "2025",
-    },
-    {
-      title: "Fin-Pay: Enterprise Virtual Banking System",
-      description:
-        "Built a secure MERN-based virtual banking application with end-to-end encryption deployed on Vercel, processing 10K+ transactions at 99.95% success rate and Optimized MongoDB performance via indexing and aggregation pipelines and maintaining sub- 200ms API response times",
-      tags: [
-        "Reactjs",
-        "Tailwind CSS",
-        "Nodejs",
-        "Expressjs",
-        "MongoDB",
-        "Mongoose",
+        "Founded and shipped a production media platform unifying HLS video streaming, WebP image optimisation, and document hosting behind one API — 99.99% uptime and sub-50ms stream starts on a global edge network.",
+      highlights: [
+        "Automated a six-stage pipeline taking 4 GB uploads through adaptive HLS transcoding to 4K, thumbnail extraction, Whisper AI captions in 11 languages, and signed-URL, WAF, and multi-DRM protection before edge delivery.",
+        "Published the open-source @streamlet/sdk npm client with REST API docs, and built usage-metered billing across five tiers with a cost calculator benchmarking against Mux and Cloudflare Stream.",
       ],
-      link: "https://fin-pay-six.vercel.app",
-      github: "https://github.com/shangesh-tech/FinPay",
-      category: "fullstack",
-      year: "2024",
+      tags: ["Next.js", "Node.js", "HLS", "Whisper AI", "Docker", "SDK", "Edge"],
+      link: "https://streamlet.dev",
+      docs: "https://docs.streamlet.dev",
+      npm: "https://www.npmjs.com/package/@streamlet/sdk",
+      github: null,
+      year: "2026",
     },
     {
-      title: "MERN-Food: Full-Scale Food Delivery Platform",
+      title: "Votium — Decentralized Voting Platform",
+      category: "Blockchain",
+      featured: true,
       description:
-        "Developed a comprehensive MERN-based food delivery application with advanced features like order tracking, payment integration, and Admin Dashboard, deployed on onRender and optimized for performance and scalability.",
-      tags: [
-        "Reactjs",
-        "Tailwind CSS",
-        "Nodejs",
-        "Expressjs",
-        "MongoDB",
-        "Mongoose",
+        "A blockchain voting platform for on-chain elections on Base Sepolia and Polygon Amoy, enforcing one vote per address, hidden tallies, and emergency pause in immutable OpenZeppelin contracts tested with Foundry.",
+      highlights: [
+        "Implemented ERC-4337 account abstraction for gasless voting, removing the wallet-funding step that blocks new Web3 users.",
       ],
-      link: "https://mern-food-frontend-6ywd.onrender.com/",
-      github: "https://github.com/shangesh-tech/Mern_food",
-      category: "fullstack",
-      year: "2024",
-    },
-    {
-      title: "Solana-AI - No-code Solana smart contract Generator",
-      description:
-        "Solana-AI is a web application that uses AI to generate Solana smart contracts based on natural language descriptions. Simply describe the functionality you want, and this will generate the complete Anchor Rust code for your Solana program.",
-      tags: ["Nextjs", "Tailwind CSS", "Groq SDK", "llama3.3 70b", "Vercel"],
-      link: "https://solana-ai-gray.vercel.app/",
-      github: "https://github.com/shangesh-tech/No-Code_Solana_development_AI",
-      category: "genai",
-      year: "2025",
-    },
-    {
-      title:
-        "Stockify - AI-Powered Portfolio Creation and Stock Analysis Assistant",
-      description:
-        "Stockify is a personalized AI-powered portfolio creation and stock analysis assistant designed to help users build sustainable long-term wealth through data-driven investment strategies. The platform provides detailed stock analysis, personalized portfolio recommendations, and real-time market insights, empowering users to make confident investment decisions.",
       tags: [
-        "Reactjs",
-        "Tailwind CSS",
-        "Nodejs",
-        "Expressjs",
-        "MongoDB",
-        "Mongoose",
-        "python",
-        "fastapi",
-        "langchain",
-        "vectorstore",
-        "Vercel",
+        "Solidity",
+        "Foundry",
+        "ERC-4337",
+        "OpenZeppelin",
+        "Base",
+        "Polygon",
       ],
+      link: "https://votium.vercel.app",
+      github: "https://github.com/shangesh-tech/Votium",
+      year: "2026",
+    },
+    {
+      title: "Stockify — AI-Powered Portfolio Assistant",
+      category: "AI",
+      featured: true,
+      description:
+        "An AI portfolio assistant delivering risk-adjusted SIP recommendations, orchestrating Gemini 1.5 Pro and LLaMA 3.3 via LangChain, LlamaIndex, and a FAISS store over Yahoo Finance data.",
+      highlights: [],
+      tags: ["LangChain", "LlamaIndex", "FAISS", "Gemini", "FastAPI", "React"],
       link: "https://stockify-pink.vercel.app/",
       github: "https://github.com/shangesh-tech/Stockify",
-      category: "genai",
       year: "2025",
+    },
+    {
+      title: "Ink Well — Full Stack Blog Platform",
+      category: "Web",
+      featured: true,
+      description:
+        "A serverless blog platform with SSR and static generation, scoring 99% on Google Lighthouse at 0.6s page loads.",
+      highlights: [
+        "Shipped a real-time markdown editor, threaded comments, and authentication, serving 1000+ concurrent readers at 99.9% uptime via indexed queries and caching.",
+      ],
+      tags: ["Next.js", "MongoDB", "Tailwind CSS", "Serverless", "SSR"],
+      link: "https://inkwell-gilt.vercel.app",
+      github: "https://github.com/shangesh-tech/inkwell",
+      year: "2025",
+    },
+    {
+      title: "FlashFund — Decentralized Crowdfunding",
+      category: "Blockchain",
+      description:
+        "An Ethereum crowdfunding platform for transparent, on-chain fundraising campaigns — contract-enforced goals, deadlines, and refunds behind a clean Next.js interface.",
+      highlights: [],
+      tags: ["Solidity", "Ethereum", "Next.js", "Hardhat", "DeFi"],
+      link: "https://flashfund-eth.vercel.app/",
+      github: "https://github.com/shangesh-tech/FlashFund",
+      year: "2025",
+    },
+    {
+      title: "ChainLet — Web3 Wallet",
+      category: "Blockchain",
+      description:
+        "A browser wallet in the shape of MetaMask: ERC-20 token support, testnet faucet integration, and multi-account key management.",
+      highlights: [],
+      tags: ["React", "Web3.js", "Ethereum", "ERC-20", "Wallet"],
+      link: "https://chain-let.vercel.app/",
+      github: "https://github.com/shangesh-tech/ChainLet",
+      year: "2025",
+    },
+    {
+      title: "BuyAChai — Decentralized Tip Platform",
+      category: "Blockchain",
+      description:
+        "A full-stack dApp letting supporters buy creators a virtual chai in ETH, with the contract, frontend integration, and test suite built end to end.",
+      highlights: [],
+      tags: ["Solidity", "Ethereum", "Hardhat", "React", "Smart Contracts"],
+      link: "https://buyachai.vercel.app/",
+      github: "https://github.com/shangesh-tech/BuyAChai",
+      year: "2025",
+    },
+    {
+      title: "SHAN — ERC-20 Token",
+      category: "Blockchain",
+      description:
+        "An ERC-20 implementation with a token faucet, miner rewards, and a full Hardhat test suite covering the reward and transfer paths.",
+      highlights: [],
+      tags: ["Solidity", "ERC-20", "Hardhat", "Ethereum", "Testing"],
+      link: null,
+      github: "https://github.com/shangesh-tech/ERC-20_TOKEN",
+      year: "2025",
+    },
+    {
+      title: "Solana-AI — No-Code Contract Generator",
+      category: "AI",
+      description:
+        "Describe the program you want in plain English and it generates the complete Anchor Rust code for a Solana contract.",
+      highlights: [],
+      tags: ["Next.js", "Groq SDK", "LLaMA 3.3", "Anchor", "Solana"],
+      link: "https://solana-ai-gray.vercel.app/",
+      github: "https://github.com/shangesh-tech/No-Code_Solana_development_AI",
+      year: "2025",
+    },
+    {
+      title: "Fin-Pay — Virtual Banking System",
+      category: "Web",
+      description:
+        "A MERN banking application with end-to-end encryption, processing 10K+ transactions at a 99.95% success rate and sub-200ms API responses via MongoDB indexing and aggregation pipelines.",
+      highlights: [],
+      tags: ["React", "Node.js", "Express", "MongoDB", "Encryption"],
+      link: "https://fin-pay-six.vercel.app",
+      github: "https://github.com/shangesh-tech/FinPay",
+      year: "2024",
     },
     {
       title: "Finance-Analyzer",
+      category: "AI",
       description:
-        "Finance-Analyzer is a web application that uses AI to analyze financial data and provide insights on stocks, bonds, and other financial instruments.",
-      tags: [
-        "python",
-        "fastapi",
-        "langchain",
-        "vectorstore",
-        "streamlit",
-        "Vercel",
-      ],
+        "A retrieval-backed analyst that reads financial documents and answers questions about stocks, bonds, and instruments with cited context.",
+      highlights: [],
+      tags: ["Python", "FastAPI", "LangChain", "Vector Store", "Streamlit"],
       link: "https://finance-analyzers.streamlit.app/",
       github: "https://github.com/shangesh-tech/Finance-Analyzer",
-      category: "genai",
       year: "2025",
     },
-    // Blockchain & Web3 Projects
     {
-      title: "BuyAChai ☕ - Decentralized Tip Platform",
+      title: "MERN-Food — Delivery Platform",
+      category: "Web",
       description:
-        "A full-stack decentralized application (dApp) that allows users to buy virtual chai (tea) for content creators using Ethereum cryptocurrency. This project demonstrates a complete Web3 development stack with smart contracts, frontend integration, and comprehensive testing.",
-      tags: [
+        "A food delivery application with live order tracking, payment integration, and an admin dashboard for menu and order operations.",
+      highlights: [],
+      tags: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+      link: "https://mern-food-frontend-6ywd.onrender.com/",
+      github: "https://github.com/shangesh-tech/Mern_food",
+      year: "2024",
+    },
+  ],
+
+  skills: [
+    {
+      title: "Languages",
+      accent: "primary",
+      items: [
+        "JavaScript",
+        "TypeScript",
+        "Python",
         "Solidity",
-        "Ethereum",
-        "Hardhat",
-        "React",
-        "Web3.js",
-        "Smart Contracts",
+        "SQL",
+        "HTML5",
+        "CSS3",
       ],
-      link: "https://buyachai.vercel.app/",
-      github: "https://github.com/shangesh-tech/BuyAChai",
-      demoVideo:
-        "https://drive.google.com/file/d/11YzXMuDJDiKoHsf6nH0u_1xEMpcG8U2M/view",
-      category: "blockchain",
-      year: "2025",
     },
     {
-      title: "FlashFund - Decentralized Crowdfunding Platform",
-      description:
-        "FlashFund is a modern, decentralized crowdfunding platform built on Ethereum that enables transparent, secure, and efficient fundraising campaigns. The platform combines the power of blockchain technology with a sleek, user-friendly interface to revolutionize how projects get funded.",
-      tags: ["Solidity", "Ethereum", "Next.js", "Hardhat", "Web3", "DeFi"],
-      link: "https://flashfund-eth.vercel.app/",
-      github: "https://github.com/shangesh-tech/FlashFund",
-      demoVideo: null,
-      category: "blockchain",
-      year: "2025",
-    },
-    {
-      title: "Shangesh Token (SHAN) - ERC20 Token",
-      description:
-        "A comprehensive ERC20 token implementation with advanced features including a token faucet, miner rewards, and comprehensive testing suite built on Ethereum using Hardhat.",
-      tags: [
+      title: "Blockchain / Web3",
+      accent: "secondary",
+      items: [
         "Solidity",
-        "ERC20",
-        "Hardhat",
-        "Ethereum",
-        "Smart Contracts",
-        "Testing",
+        "Foundry",
+        "Thirdweb",
+        "OpenZeppelin",
+        "ERC-20 / 721",
+        "ERC-4337",
+        "Gas Optimization",
+        "EVM",
       ],
+    },
+    {
+      title: "Web",
+      accent: "accent",
+      items: [
+        "React.js",
+        "Next.js 15",
+        "TailwindCSS",
+        "Node.js",
+        "Express.js",
+        "FastAPI",
+        "REST APIs",
+        "Prisma ORM",
+        "SSR",
+        "Serverless",
+      ],
+    },
+    {
+      title: "Data & AI",
+      accent: "primary",
+      items: [
+        "MongoDB",
+        "PostgreSQL",
+        "FAISS",
+        "Pinecone",
+        "LangChain",
+        "LlamaIndex",
+        "Vercel AI SDK",
+        "Gemini",
+        "Groq",
+        "Whisper AI",
+      ],
+    },
+    {
+      title: "DevOps & Cloud",
+      accent: "secondary",
+      items: [
+        "Docker",
+        "Docker Compose",
+        "GitHub Actions",
+        "CI/CD Pipelines",
+        "Linux",
+        "Nginx",
+        "Vercel",
+        "Cloudflare",
+        "Secrets Management",
+        "Monitoring & Uptime",
+        "Webhooks",
+        "npm Publishing",
+      ],
+    },
+    {
+      title: "Practices",
+      accent: "accent",
+      items: [
+        "Git",
+        "Code Review",
+        "Agile",
+        "Technical Documentation",
+        "Unit & Fuzz Testing",
+        "SDK Design",
+      ],
+    },
+  ],
+
+  education: [
+    {
+      degree: "B.Tech in Computer Science and Engineering",
+      track: "Kalvium",
+      institution: "Alliance University",
+      location: "Bangalore, India",
+      period: "2024 – 2028",
+    },
+  ],
+
+  achievements: [
+    {
+      icon: "Medal",
+      title: "National Finalist — PromptRepo × Kalvium AI Hackathon",
+      description:
+        "Solo entrant among 100+ teams nationwide, February 2025.",
+      color: "#A270FF",
       link: null,
-      github: "https://github.com/shangesh-tech/ERC-20_TOKEN",
-      demoVideo: null,
-      category: "blockchain",
-      year: "2025",
     },
     {
-      title: "ChainLet - Web3 Wallet",
+      icon: "Trophy",
+      title: "Winner — State-Level Coding Hackathon",
       description:
-        "A comprehensive Web3 wallet application similar to MetaMask, featuring ERC-20 token support, faucet integration, and multi-account management.",
-      tags: ["React", "Web3.js", "Ethereum", "ERC20", "Wallet", "Blockchain"],
-      link: "https://chain-let.vercel.app/",
-      github: "https://github.com/shangesh-tech/ChainLet",
-      demoVideo: null,
-      category: "blockchain",
-      year: "2025",
+        "1st of 200+ participants. Government of Tamil Nadu, November 2023.",
+      color: "#FF9B54",
+      link: null,
+    },
+    {
+      icon: "Package",
+      title: "Published @streamlet/sdk on npm",
+      description:
+        "Open-source SDK client with REST API docs, shipped alongside the Streamlet platform.",
+      color: "#FF7D81",
+      link: "https://www.npmjs.com/package/@streamlet/sdk",
+    },
+    {
+      icon: "Gauge",
+      title: "22% Gas Reduction in Production",
+      description:
+        "Storage-layout refactors, custom errors, and batched state updates across live contracts.",
+      color: "#A270FF",
+      link: null,
+    },
+    {
+      icon: "Zap",
+      title: "2h → 15min Deploy Pipeline",
+      description:
+        "Dockerized CI/CD releases plus runbooks adopted by the wider engineering team.",
+      color: "#FF9B54",
+      link: null,
+    },
+    {
+      icon: "ShieldCheck",
+      title: "90% Test Coverage on Audited Contracts",
+      description:
+        "Unit and fuzz coverage hardened against reentrancy, access-control, and overflow risk.",
+      color: "#FF7D81",
+      link: null,
     },
   ],
 
   freelanceProjects: [
     {
+      title: "CRAV",
+      description:
+        "A food takeaway platform on iOS, Android and web — GPS restaurant discovery, live order tracking, Razorpay checkout, and coupon handling.",
+      link: "https://www.justcrav.com/",
+      year: "2026",
+    },
+    {
       title: "The Infra",
       description:
-        "Crafting Spaces That Inspire - A professional website for a construction and infrastructure company.",
+        "Crafting spaces that inspire — a marketing site for a construction and infrastructure firm.",
       link: "https://theinfra.in/",
-      image: "/projects/theinfra.jpg",
       year: "2025",
     },
     {
-      title: "Grammar - Interior Design",
+      title: "Grammar — Interior Design",
       description:
-        "Elegant Interior Design Studio. Transform your living spaces with premium furniture collections that blend style, comfort, and functionality.",
+        "An interior design studio's catalogue site for premium furniture collections.",
       link: "https://grammar-fawn.vercel.app/",
-      image: "/projects/grammar.jpg",
       year: "2025",
     },
     {
       title: "Perimeter Control System",
       description:
-        "A leader in providing cutting-edge electric fencing solutions. Delivering safe, effective, and reliable perimeter security that meets the highest standards of excellence.",
+        "A product site for an electric fencing and perimeter security company.",
       link: "https://www.perimetercontrolsystem.in/",
-      image: "/projects/perimeter.jpg",
       year: "2025",
     },
   ],
 };
+
+// Deterministic colour for a tech tag, keyed by the technology's own family.
+const TAG_COLORS = {
+  blockchain: "#f97316",
+  ai: "#8b5cf6",
+  frontend: "#3b82f6",
+  backend: "#22c55e",
+  data: "#ec4899",
+  devops: "#0ea5e9",
+  default: "#ef4444",
+};
+
+const TAG_FAMILY = {
+  Solidity: "blockchain",
+  Foundry: "blockchain",
+  Hardhat: "blockchain",
+  Ethereum: "blockchain",
+  EVM: "blockchain",
+  Polygon: "blockchain",
+  Base: "blockchain",
+  Solana: "blockchain",
+  Anchor: "blockchain",
+  OpenZeppelin: "blockchain",
+  "ERC-20": "blockchain",
+  "ERC-4337": "blockchain",
+  "Smart Contracts": "blockchain",
+  "Web3.js": "blockchain",
+  Wallet: "blockchain",
+  DeFi: "blockchain",
+  Thirdweb: "blockchain",
+
+  LangChain: "ai",
+  LlamaIndex: "ai",
+  FAISS: "ai",
+  Gemini: "ai",
+  "Groq SDK": "ai",
+  "LLaMA 3.3": "ai",
+  "Whisper AI": "ai",
+
+  React: "frontend",
+  "Next.js": "frontend",
+  "Tailwind CSS": "frontend",
+  SSR: "frontend",
+
+  "Node.js": "backend",
+  Express: "backend",
+  FastAPI: "backend",
+  Serverless: "backend",
+  SDK: "backend",
+
+  MongoDB: "data",
+  "Vector Store": "data",
+  Encryption: "data",
+
+  Docker: "devops",
+  Edge: "devops",
+  HLS: "devops",
+};
+
+export function tagColor(tag) {
+  return TAG_COLORS[TAG_FAMILY[tag]] ?? TAG_COLORS.default;
+}
+
+export const projectCategories = [
+  "All",
+  ...Array.from(new Set(portfolioConfig.projects.map((p) => p.category))),
+];
