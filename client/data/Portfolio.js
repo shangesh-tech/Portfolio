@@ -185,6 +185,31 @@ export const portfolioConfig = {
       year: "2026",
     },
     {
+      title: "Nexlaw — Realtime Voice Legal Agent",
+      category: "AI",
+      featured: true,
+      description:
+        "A realtime voice agent that lets law students argue cases out loud with an AI professor — speak, get questioned back in natural speech, and end each session with a scored breakdown of your legal reasoning.",
+      highlights: [
+        "Realtime speech-to-speech loop with no typing — the agent's reply starts playing as it is generated rather than after it finishes, so the conversation stays natural.",
+        "Drafts IRAC/FILAC legal arguments and full 8-section moot court memorials with one-click PDF export, and scores every practice session on reasoning, citations and argument strength.",
+      ],
+      metrics: ["realtime voice loop"],
+      tags: [
+        "Next.js",
+        "Vercel AI SDK",
+        "Whisper",
+        "Deepgram",
+        "MongoDB",
+        "JWT",
+        "Tailwind",
+        "Groq inference",
+      ],
+      link: "https://nexlaw-shangesh.vercel.app/",
+      github: null,
+      year: "2026",
+    },
+    {
       title: "Stockify — AI-Powered Portfolio Assistant",
       category: "AI",
       featured: true,
@@ -358,6 +383,7 @@ export const portfolioConfig = {
         "Gemini",
         "Groq",
         "Whisper AI",
+        "Deepgram",
       ],
     },
     {
@@ -519,12 +545,17 @@ const TAG_FAMILY = {
   LlamaIndex: "ai",
   FAISS: "ai",
   Gemini: "ai",
+  Groq: "ai",
   "Groq SDK": "ai",
   "LLaMA 3.3": "ai",
+  Whisper: "ai",
   "Whisper AI": "ai",
+  Deepgram: "ai",
+  "Vercel AI SDK": "ai",
 
   React: "frontend",
   "Next.js": "frontend",
+  Tailwind: "frontend",
   "Tailwind CSS": "frontend",
   SSR: "frontend",
 
@@ -533,6 +564,7 @@ const TAG_FAMILY = {
   FastAPI: "backend",
   Serverless: "backend",
   SDK: "backend",
+  JWT: "backend",
 
   MongoDB: "data",
   "Vector Store": "data",

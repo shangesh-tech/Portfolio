@@ -808,6 +808,19 @@ function Projects() {
                   ))}
                 </ul>
               )}
+
+              {project.metrics?.length > 0 && (
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-6 font-[var(--font-code)] text-xs font-bold uppercase tracking-wider text-[var(--color-secondary)]">
+                  {project.metrics.map((metric, i) => (
+                    <span key={metric} className="flex items-center gap-2">
+                      {i > 0 && (
+                        <span className="w-1 h-1 rotate-45 bg-[var(--color-secondary)]" />
+                      )}
+                      {metric}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t-2 border-dashed border-[var(--color-border)]">
